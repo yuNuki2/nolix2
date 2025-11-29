@@ -1,0 +1,46 @@
+{
+	"name": "@nolix2/dom",
+	"version": "1.0.0",
+	"description": "",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"./dist/**/*.{js,mjs}",
+		"./dist/**/*.d.ts"
+	],
+	"exports": {
+		".": "./dist/index.js",
+		"./canvas": "./dist/canvas/index.js",
+		"./custom": "./dist/custom/index.js",
+		"./dom": "./dist/dom/index.js",
+		"./svg": "./dist/svg/index.js",
+		"./webgl": "./dist/webgl/index.js"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"homepage": "https://example.com",
+	"repository": {
+		"type": "git",
+		"url": "https://example.com",
+		"directory": "packages/nolix2"
+	},
+	"author": {
+		"name": "yuNuki",
+		"email": "aaa@yunukish.jp",
+		"url": "https://example.com"
+	},
+	"bugs": {
+		"url": "https://example.com"
+	},
+	"keywords": [],
+	"dependencies": {
+		"@nolix2/core": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/node": "^20"
+	},
+	"sideEffects": false
+}

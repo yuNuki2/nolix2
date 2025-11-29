@@ -1,0 +1,23 @@
+{
+	"name": "nolix2",
+	"private": true,
+	"license": "MIT",
+	"scripts": {
+		"dev": "pnpm --filter ./examples/nextjs dev",
+		"build": "turbo build",
+		"build:watch": "turbo watch",
+		"check": "pnpm exec biome check --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.8",
+		"lefthook": "2.0.4",
+		"turbo": "^2.6.1",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.14"
+	},
+	"engines": {
+		"pnpm": "=9.15.9",
+		"npm": "please_use_pnpm_instead"
+	},
+	"packageManager": "pnpm@9.15.9"
+}

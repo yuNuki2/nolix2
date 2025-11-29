@@ -1,0 +1,39 @@
+{
+	"name": "@nolix2/core",
+	"version": "1.0.0",
+	"description": "",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"./dist/**/*.{js,mjs}",
+		"./dist/**/*.d.ts"
+	],
+	"scripts": {
+		"build": "tsc"
+	},
+	"homepage": "https://example.com",
+	"repository": {
+		"type": "git",
+		"url": "https://example.com",
+		"directory": "packages/nolix2"
+	},
+	"author": {
+		"name": "yuNuki",
+		"email": "aaa@yunukish.jp",
+		"url": "https://example.com"
+	},
+	"bugs": {
+		"url": "https://example.com"
+	},
+	"keywords": [],
+	"devDependencies": {
+		"@types/node": "^20",
+		"@types/seedrandom": "^3.0.8"
+	},
+	"sideEffects": false,
+	"dependencies": {
+		"seedrandom": "^3.0.5"
+	}
+}

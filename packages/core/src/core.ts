@@ -1,0 +1,100 @@
+import { Δ } from "./constants";
+import { binarize, generateRandom, isArray, isFunction, noDifference } from "./helper";
+import type { Cell, LifeGameGenerator, LifeGameGeneratorOptions, Size } from "./types";
+
+export class LifeGame {
+	private readonly _columns: number;
+	private readonly _rows: number;
+	private readonly _universe: Uint8Array;
+	private readonly _next: Uint8Array;
+
+	private constructor(
+		columns: number,
+		rows: number,
+		options: LifeGameGeneratorOptions = {},
+	) {
+		this._columns = columns;
+		this._rows = rows;
+		this._universe = new Uint8Array(columns * rows);
+		this._next = this._universe;
+
+		if (options.defaultCells) {
+			for (const [x, y] of options.defaultCells) {
+				this._universe[this.getIndex(x, y)] = 1;
+			}
+		} else {
+			const density = options.density ?? 0.4;
+			const rng = generateRandom(options.seed);
+			this._universe = this._universe.map(() => binarize(rng() < density));
+		}
+	}
+
+	static *generate(
+		size: Size,
+		options: LifeGameGeneratorOptions = {},
+	): LifeGameGenerator {
+		const [columns, rows] = isArray(size) ? size : [size.columns, size.rows];
+
+		const done = options.done ?? noDifference;
+
+		const lifegame = new LifeGame(columns, rows, options);
+
+		yield lifegame.cells;
+
+		while (true) {
+			const prev = lifegame.cells;
+			const next = lifegame.nextGeneration();
+
+			if (isFunction(done) && done(prev, next)) {
+				return prev;
+			}
+
+			yield next;
+		}
+	}
+
+	get cells() {
+		return this.toCells(this._universe);
+	}
+
+	private getIndex(x: number, y: number): number {
+		return y * this._columns + x;
+	}
+
+	private countAliveNeighbors(x: number, y: number): number {
+		let count = 0;
+		for (const [dx, dy] of Δ) {
+			count += this._universe[this.getIndex(x + dx, y + dy)] ?? 0;
+		}
+		return count;
+	}
+
+	private toCells(universe: Uint8Array) {
+		const cells: Cell[][] = [];
+		for (let y = 0; y < this._rows; y++) {
+			const row: Cell[] = [];
+			for (let x = 0; x < this._columns; x++) {
+				row.push(universe[this.getIndex(x, y)] as Cell);
+			}
+			cells.push(row);
+		}
+		return cells;
+	}
+
+	public nextGeneration() {
+		for (let y = 0; y < this._rows; y++) {
+			for (let x = 0; x < this._columns; x++) {
+				const index = this.getIndex(x, y);
+				const neighbors = this.countAliveNeighbors(x, y);
+				const cell = this._universe[index];
+				// セルが生きていたとき、周りに生きたセルが２つまたは３つあれば次も生きる
+				// セルが死んでいたとき、周りに生きたセルが３つあれば、生き返る
+				this._next[index] = binarize(
+					cell ? neighbors === 2 || neighbors === 3 : neighbors === 3,
+				);
+			}
+		}
+		this._universe.set(this._next);
+		return this.toCells(this._universe);
+	}
+}

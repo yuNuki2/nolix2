@@ -1,0 +1,45 @@
+{
+	"name": "@nolix2/react",
+	"version": "1.0.0",
+	"description": "",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"./dist/**/*.{js,mjs}",
+		"./dist/**/*.d.ts"
+	],
+	"scripts": {
+		"build": "tsc"
+	},
+	"homepage": "https://example.com",
+	"repository": {
+		"type": "git",
+		"url": "https://example.com",
+		"directory": "packages/nolix2"
+	},
+	"author": {
+		"name": "yuNuki",
+		"email": "aaa@yunukish.jp",
+		"url": "https://example.com"
+	},
+	"bugs": {
+		"url": "https://example.com"
+	},
+	"keywords": [],
+	"dependencies": {
+		"@nolix2/core": "workspace:*",
+		"@nolix2/dom": "workspace:*",
+		"react": "18.2.0",
+		"react-dom": "18.2.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.43",
+		"@types/react-dom": "18.3.5"
+	},
+	"peerDependencies": {
+		"react": ">=18"
+	},
+	"sideEffects": false
+}
