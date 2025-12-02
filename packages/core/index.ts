@@ -4,6 +4,7 @@ export type {
 	Cell,
 	LifeGameGenerator,
 	LifeGameGeneratorOptions,
+	LifeGameGeneratorResultValue,
 	Size,
 } from "./src/types";
 

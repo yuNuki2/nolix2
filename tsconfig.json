@@ -2,7 +2,9 @@
 	"references": [
 		{ "path": "./examples/nextjs" },
 		{ "path": "./packages/core" },
-		{ "path": "./packages/react" }
+		{ "path": "./packages/dom" },
+		{ "path": "./packages/react" },
+		{ "path": "./packages/utils" }
 	],
 	"files": []
 }

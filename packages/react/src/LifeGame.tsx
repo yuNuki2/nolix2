@@ -1,48 +1,56 @@
-import { CanvasRenderer } from "@nolix2/dom";
-import {
-	forwardRef,
-	useCallback,
-	useImperativeHandle,
-	useRef,
-	useSyncExternalStore,
-} from "react";
-import type { LifeGameHandle } from "../../dom/dist/src/types";
+import { LifeGameController } from "@nolix2/dom";
+import { CanvasRenderer } from "@nolix2/dom/canvas";
+import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from "react";
+import { LifeGameContext } from "./context";
 import { useSafeLayoutEffect } from "./hooks";
-import type { LifeGameProps } from "./types";
+import type { LifeGameHandle, LifeGameProps } from "./types";
 
 const LifeGameCanvas = forwardRef<LifeGameHandle, LifeGameProps>((props, ref) => {
 	// const {} = props;
 
 	const canvas = useRef<HTMLCanvasElement>(null);
-	const renderer = useRef<CanvasRenderer | null>(null);
+	const game = useRef<LifeGameController | null>(null);
 
-	const subscribe = useCallback((callback: () => void) => {
-		return renderer.current?.store.subscribe(callback) ?? (() => {});
-	}, []);
+	// const subscribe = useCallback((callback: () => void) => {
+	// 	return game.current?.subscribe(callback) ?? (() => {});
+	// }, []);
 
-	const getSnapshot = useCallback(() => {
-		return renderer.current?.store.cells ?? [];
-	}, []);
+	// const getSnapshot = useCallback(() => {
+	// 	return game.current?.cells ?? [];
+	// }, []);
 
-	useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+	// useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+
+	const context = useContext(LifeGameContext);
 
 	useSafeLayoutEffect(() => {
-		renderer.current = new CanvasRenderer(canvas.current, props);
-		renderer.current.mount();
+		if (!canvas.current) return;
+		const { interval, ...rendererOptions } = props;
+		const renderer = new CanvasRenderer(canvas.current, rendererOptions);
+		game.current = LifeGameController.withRenderer(renderer, { interval });
+		game.current.start();
+
+		if (context) {
+			context.setValue(canvas.current.id || "lifegame", game.current);
+		}
 
 		return () => {
-			renderer.current?.unmount();
+			game.current?.dispose();
 		};
 	}, []);
 
+	useEffect(() => {
+		game.current?.renderer.update(props);
+	}, [props]);
+
 	useImperativeHandle(ref, () => ({
-		start: () => {},
-		stop: () => {},
-		next: () => {},
-		prev: () => {},
+		start: () => game.current?.start(),
+		stop: () => game.current?.stop(),
+		next: () => game.current?.next(),
+		prev: () => game.current?.prev(),
 	}));
 
-	return <canvas ref={canvas} width={props.width} height={props.height} />;
+	return <canvas ref={canvas} />;
 });
 
 export default LifeGameCanvas;

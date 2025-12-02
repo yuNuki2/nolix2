@@ -1,5 +1,5 @@
 {
-	"name": "@nolix2/dom",
+	"name": "@nolix2/utils",
 	"version": "1.0.0",
 	"description": "",
 	"license": "MIT",
@@ -10,17 +10,8 @@
 		"./dist/**/*.{js,mjs}",
 		"./dist/**/*.d.ts"
 	],
-	"exports": {
-		".": "./dist/index.js",
-		"./canvas": "./dist/canvas/index.js",
-		"./custom": "./dist/custom/index.js",
-		"./dom": "./dist/dom/index.js",
-		"./svg": "./dist/svg/index.js",
-		"./webgl": "./dist/webgl/index.js"
-	},
 	"scripts": {
-		"build": "tsup",
-		"test": "vitest"
+		"build": "tsc"
 	},
 	"homepage": "https://example.com",
 	"repository": {
@@ -37,11 +28,5 @@
 		"url": "https://example.com"
 	},
 	"keywords": [],
-	"dependencies": {
-		"@nolix2/core": "workspace:*"
-	},
-	"devDependencies": {
-		"@types/node": "^20"
-	},
 	"sideEffects": false
 }

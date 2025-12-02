@@ -7,6 +7,7 @@ export class LifeGame {
 	private readonly _rows: number;
 	private readonly _universe: Uint8Array;
 	private readonly _next: Uint8Array;
+	generation: number = 1;
 
 	private constructor(
 		columns: number,
@@ -16,7 +17,7 @@ export class LifeGame {
 		this._columns = columns;
 		this._rows = rows;
 		this._universe = new Uint8Array(columns * rows);
-		this._next = this._universe;
+		this._next = this._universe.slice();
 
 		if (options.defaultCells) {
 			for (const [x, y] of options.defaultCells) {
@@ -39,17 +40,17 @@ export class LifeGame {
 
 		const lifegame = new LifeGame(columns, rows, options);
 
-		yield lifegame.cells;
+		yield { cells: lifegame.cells, generation: lifegame.generation };
 
 		while (true) {
 			const prev = lifegame.cells;
 			const next = lifegame.nextGeneration();
 
 			if (isFunction(done) && done(prev, next)) {
-				return prev;
+				return { cells: prev, generation: lifegame.generation };
 			}
 
-			yield next;
+			yield { cells: next, generation: lifegame.generation };
 		}
 	}
 
@@ -95,6 +96,7 @@ export class LifeGame {
 			}
 		}
 		this._universe.set(this._next);
+		this.generation = this.generation + 1;
 		return this.toCells(this._universe);
 	}
 }

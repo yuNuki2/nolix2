@@ -1,16 +1,16 @@
-import type { Cell, LifeGameGenerator } from "@nolix2/core";
+import type { Cell, LifeGameGenerator, LifeGameGeneratorResultValue } from "@nolix2/core";
 
 export interface Store {
 	readonly cells: Cell[][];
-	subscribe: (callback: () => void) => () => void;
-	next: () => void;
+	subscribe: (callback: (cells: Cell[][]) => void) => () => void;
+	next: () => IteratorResult<LifeGameGeneratorResultValue, LifeGameGeneratorResultValue>;
 }
 
 export function createLifeGameObserver(generator: LifeGameGenerator): Store {
 	let cells: Cell[][] = [];
-	const listeners = new Set<() => void>();
+	const listeners = new Set<(cells: Cell[][]) => void>();
 
-	function subscribe(callback: () => void): () => void {
+	function subscribe(callback: (cells: Cell[][]) => void): () => void {
 		listeners.add(callback);
 		return () => {
 			listeners.delete(callback);
@@ -18,17 +18,13 @@ export function createLifeGameObserver(generator: LifeGameGenerator): Store {
 	}
 
 	function next() {
-		cells = generator.next().value;
+		const result = generator.next();
+		cells = result.value.cells;
 		for (const listener of listeners) {
-			listener();
+			listener(cells);
 		}
+		return result;
 	}
 
-	return {
-		get cells() {
-			return cells;
-		},
-		subscribe,
-		next,
-	};
+	return { cells, subscribe, next };
 }

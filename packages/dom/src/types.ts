@@ -3,10 +3,12 @@ import type { DEFAULT } from "./constants";
 
 export type RenderType = "canvas" | "dom" | "svg" | "webgl";
 
-export interface Renderer<E extends Element = Element> {
-	mount: (target: E) => void;
+export interface Renderer<O = LifeGameRendererOptionsWithDefaults> {
+	readonly options?: O;
+	mount: () => void;
 	render: (cells: Cell[][]) => void;
 	unmount: () => void;
+	update: (value: Partial<LifeGameRendererOptions>) => void;
 }
 
 export type ProcessMode = "auto" | "manual";
@@ -38,11 +40,6 @@ export interface LifeGameRendererOptions extends LifeGameGeneratorOptions {
 	 * @description
 	 */
 	height?: number | undefined;
-
-	/**
-	 * @default 500
-	 */
-	interval?: number | undefined;
 
 	/**
 	 * @default auto
@@ -96,17 +93,15 @@ export type LifeGameDOMRendererOptionsWithDefaults = SomeStrictRequired<
 	keyof typeof DEFAULT
 >;
 
-export interface LifeGameHandle {
-	start: () => void;
-	stop: () => void;
-	prev: () => void;
-	next: () => void;
+export interface LifeGameControllerOptions {
+	/**
+	 * @default 250
+	 */
+	interval?: number | undefined;
 }
 
-export interface LifeGameCanvasElement extends HTMLCanvasElement, LifeGameHandle {}
-export interface LifeGameHTMLElement extends HTMLElement, LifeGameHandle {}
-export interface LifeGameSVGElement extends SVGElement, LifeGameHandle {}
-export interface LifeGameWebGLElement extends HTMLCanvasElement, LifeGameHandle {}
+export type LifeGameControllerOptionsWithDefaults =
+	StrictRequired<LifeGameControllerOptions>;
 
 type StrictRequired<T> = {
 	[P in keyof T]-?: NonNullable<T[P]>;

@@ -1,11 +1,18 @@
-import LifeGame, { type Cell, type LifeGameGenerator } from "@nolix2/core";
-import { assertIsHTMLElement, getSize, resolveElement, resolveOptions } from "../helper";
-import { createLifeGameObserver } from "../store";
+import type { Cell } from "@nolix2/core";
+import {
+	getSize,
+	isCanvasElement,
+	isHTMLElement,
+	normalizeObject,
+	resolveElement,
+	resolveOptions,
+} from "../../helper";
 import type {
 	LifeGameDOMRendererOptions,
 	LifeGameDOMRendererOptionsWithDefaults,
+	LifeGameRendererOptions,
 	Renderer,
-} from "../types";
+} from "../../types";
 
 export class DOMRenderer implements Renderer {
 	private readonly container: HTMLElement;
@@ -15,22 +22,15 @@ export class DOMRenderer implements Renderer {
 	private readonly _cellSize: number;
 	private readonly _columns: number;
 	private readonly _rows: number;
-	private _lastTimestamp: number | null = null;
-	private _processing = false;
-	private _animationFrame: number | null = null;
-
-	private readonly _generator: LifeGameGenerator;
-	private readonly unsubscribe: () => void;
 
 	constructor(
 		container: string | HTMLElement | null,
 		options: LifeGameDOMRendererOptions = {},
 	) {
 		const el = resolveElement(container);
-		if (!el) {
-			throw new Error("canvas not found");
+		if (!isHTMLElement(el) || isCanvasElement(el)) {
+			throw new Error("target is invalid element");
 		}
-		assertIsHTMLElement(el);
 
 		this.container = el;
 
@@ -42,14 +42,17 @@ export class DOMRenderer implements Renderer {
 			this._options.rows,
 		);
 
-		this._cellSize = cellSize;
+		this._cellSize = 14;
 		this._columns = columns;
 		this._rows = rows;
+	}
 
-		this._generator = LifeGame.generate([columns, rows], this._options);
-		const store = createLifeGameObserver(this._generator);
+	get options() {
+		return this._options;
+	}
 
-		this.unsubscribe = store.subscribe(() => this.render(store.cells));
+	public update(value: Partial<LifeGameRendererOptions>) {
+		this._options = Object.assign({}, this._options, normalizeObject(value));
 	}
 
 	public mount() {
@@ -95,47 +98,8 @@ export class DOMRenderer implements Renderer {
 		}
 	}
 
-	private loop(timestamp: DOMHighResTimeStamp) {
-		if (
-			!this._lastTimestamp ||
-			timestamp - this._lastTimestamp >= this._options.interval
-		) {
-			const done = this._next(timestamp);
-
-			console.log({ done });
-
-			if (done) return stop();
-			this._lastTimestamp = timestamp;
-		}
-
-		this._animationFrame = requestAnimationFrame(this.loop.bind(this));
-	}
-
-	private _next(timestamp?: DOMHighResTimeStamp): boolean | Promise<boolean> {
-		const { done, value } = this._generator.next();
-		if (done) return true;
-		this.render(value);
-		this._options.onRender?.(timestamp);
-		return false;
-	}
-
-	public start() {
-		if (this._processing) return;
-		this._animationFrame = requestAnimationFrame(this.loop.bind(this));
-		this._processing = true;
-		// dispatch();
-	}
-
-	public stop() {
-		console.log("stop", this._processing, this._animationFrame);
-		if (!this._processing || this._animationFrame === null) return;
-		cancelAnimationFrame(this._animationFrame);
-		this._processing = false;
-		this._animationFrame = null;
-		// dispatch();
-	}
-
 	public unmount() {
-		this.unsubscribe();
+		this.container.innerHTML = "";
+		this.cells.splice(0);
 	}
 }

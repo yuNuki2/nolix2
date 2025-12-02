@@ -11,7 +11,8 @@
 		"./dist/**/*.d.ts"
 	],
 	"scripts": {
-		"build": "tsc"
+		"build": "tsup",
+		"test": "vitest"
 	},
 	"homepage": "https://example.com",
 	"repository": {

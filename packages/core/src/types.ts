@@ -37,4 +37,10 @@ export interface LifeGameGeneratorOptions {
 	seed?: string | undefined;
 }
 
-export interface LifeGameGenerator extends Generator<Cell[][], Cell[][], never> {}
+export interface LifeGameGeneratorResultValue {
+	cells: Cell[][];
+	generation: number;
+}
+
+export interface LifeGameGenerator
+	extends Generator<LifeGameGeneratorResultValue, LifeGameGeneratorResultValue, never> {}
