@@ -1,31 +1,21 @@
 import type { Cell } from "@nolix2/core";
 import {
 	getSize,
-	isCanvasElement,
-	isHTMLElement,
-	normalizeObject,
-	resolveElement,
-	resolveOptions,
-} from "../../helper";
-import type {
-	LifeGameDOMRendererOptions,
-	LifeGameDOMRendererOptionsWithDefaults,
-	LifeGameRendererOptions,
-	Renderer,
-} from "../../types";
+	normalizeLifeGameRendererOptions,
+	type LifeGameRendererConfig,
+	type LifeGameRendererOptions,
+	type Renderer,
+} from "@nolix2/renderer";
+import { isCanvasElement, isHTMLElement, resolveElement } from "../../helper";
 
 export class DOMRenderer implements Renderer {
 	private readonly container: HTMLElement;
 	private readonly cells: HTMLElement[][] = [];
-	private _options: LifeGameDOMRendererOptionsWithDefaults;
-
-	private readonly _cellSize: number;
-	private readonly _columns: number;
-	private readonly _rows: number;
+	private _options: LifeGameRendererConfig;
 
 	constructor(
 		container: string | HTMLElement | null,
-		options: LifeGameDOMRendererOptions = {},
+		options: LifeGameRendererOptions = {},
 	) {
 		const el = resolveElement(container);
 		if (!isHTMLElement(el) || isCanvasElement(el)) {
@@ -34,40 +24,34 @@ export class DOMRenderer implements Renderer {
 
 		this.container = el;
 
-		this._options = resolveOptions(options);
+		const normalizedOptions = normalizeLifeGameRendererOptions(options);
 
-		const { cellSize, columns, rows } = getSize(
-			this.container,
-			this._options.columns,
-			this._options.rows,
-		);
+		const config = getSize(this.container, options);
 
-		this._cellSize = 14;
-		this._columns = columns;
-		this._rows = rows;
+		this._options = { ...normalizedOptions, ...config };
 	}
 
 	get options() {
 		return this._options;
 	}
 
-	public update(value: Partial<LifeGameRendererOptions>) {
-		this._options = Object.assign({}, this._options, normalizeObject(value));
+	public update(value: LifeGameRendererOptions) {
+		this._options = normalizeLifeGameRendererOptions(this._options, value);
 	}
 
 	public mount() {
 		this.container.innerHTML = ""; // 初期化
 
-		for (let i = 0; i < this._rows; i++) {
-			const rowEl = document.createElement(this._options.cellEl ?? "div");
+		for (let i = 0; i < this._options.rows; i++) {
+			const rowEl = document.createElement("div");
 			rowEl.style.display = "flex";
 
 			const cellRow: HTMLElement[] = [];
 
-			for (let j = 0; j < this._columns; j++) {
+			for (let j = 0; j < this._options.columns; j++) {
 				const cellEl = document.createElement("div");
-				cellEl.style.width = `${this._cellSize}px`;
-				cellEl.style.height = `${this._cellSize}px`;
+				cellEl.style.width = `${this._options.cellSize}px`;
+				cellEl.style.height = `${this._options.cellSize}px`;
 				cellEl.style.boxSizing = "border-box";
 				cellEl.style.border = "1px solid #ccc";
 				cellEl.style.backgroundColor = i

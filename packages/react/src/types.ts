@@ -1,26 +1,27 @@
-import type {
-	LifeGameController,
-	LifeGameControllerOptions,
-	LifeGameRendererOptions,
-} from "@nolix2/dom";
+import type { LifeGameGeneratorOptions } from "@nolix2/core";
+import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@nolix2/process";
+import type { LifeGameRendererConfig, LifeGameRendererOptions } from "@nolix2/renderer";
 import type { ComponentProps } from "react";
 
+interface CanvasProps
+	extends Omit<ComponentProps<"canvas">, "height" | "onClick" | "width"> {}
+
 export interface LifeGameProps
-	extends Omit<ComponentProps<"canvas">, "height" | "onClick" | "width">,
-		LifeGameRendererOptions,
-		LifeGameControllerOptions {}
+	extends CanvasProps,
+		LifeGameGeneratorOptions,
+		LifeGameProcessorerOptions,
+		LifeGameRendererOptions {}
+
+export interface LifeGamePropsWithDefaults
+	extends CanvasProps,
+		LifeGameGeneratorOptions,
+		LifeGameProcessorerOptions,
+		LifeGameRendererConfig {}
 
 export interface LifeGameContextValue {
 	value: {
-		lifegame?: LifeGameController | undefined;
-		[key: string]: LifeGameController | undefined;
+		lifegame?: LifeGameProcessor | undefined;
+		[key: string]: LifeGameProcessor | undefined;
 	};
-	setValue: (id: string, value: LifeGameController) => void;
-}
-
-export interface LifeGameHandle {
-	start: () => void;
-	stop: () => void;
-	prev: () => void;
-	next: () => void;
+	setValue: (id: string, value: LifeGameProcessor) => void;
 }

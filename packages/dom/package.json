@@ -38,10 +38,8 @@
 	},
 	"keywords": [],
 	"dependencies": {
-		"@nolix2/core": "workspace:*"
-	},
-	"devDependencies": {
-		"@types/node": "^20"
+		"@nolix2/core": "workspace:*",
+		"@nolix2/renderer": "workspace:*"
 	},
 	"sideEffects": false
 }

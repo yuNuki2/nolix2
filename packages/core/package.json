@@ -29,12 +29,11 @@
 		"url": "https://example.com"
 	},
 	"keywords": [],
-	"devDependencies": {
-		"@types/node": "^20",
-		"@types/seedrandom": "^3.0.8"
-	},
-	"sideEffects": false,
 	"dependencies": {
 		"seedrandom": "^3.0.5"
-	}
+	},
+	"devDependencies": {
+		"@types/seedrandom": "^3.0.8"
+	},
+	"sideEffects": false
 }

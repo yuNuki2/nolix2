@@ -3,7 +3,7 @@
 > @nolix2/dom@1.0.0 build /Users/hiroki_yano/workspace/packages/nolix2/packages/dom
 > tsup
 
-[34mCLI[39m Building entry: {"index":"index.ts","canvas/index":"src/renderers/canvas/index.ts","custom/index":"src/renderers/custom/index.ts","dom/index":"src/renderers/canvas/index.ts","svg/index":"src/renderers/canvas/index.ts","webgl/index":"src/renderers/canvas/index.ts"}
+[34mCLI[39m Building entry: {"index":"index.ts","canvas/index":"src/renderers/canvas/index.ts","custom/index":"src/renderers/custom/index.ts","dom/index":"src/renderers/dom/index.ts","svg/index":"src/renderers/svg/index.ts","webgl/index":"src/renderers/webgl/index.ts"}
 [34mCLI[39m Using tsconfig: tsconfig.json
 [34mCLI[39m tsup v8.5.1
 [34mCLI[39m Using tsup config: /Users/hiroki_yano/workspace/packages/nolix2/packages/dom/tsup.config.ts
@@ -11,45 +11,43 @@
 [34mCLI[39m Cleaning output folder
 [34mESM[39m Build start
 [34mCJS[39m Build start
+[32mCJS[39m [1mdist/webgl/index.js      [22m[32m2.84 KB[39m
+[32mCJS[39m [1mdist/dom/index.js        [22m[32m3.57 KB[39m
+[32mCJS[39m [1mdist/canvas/index.js     [22m[32m2.67 KB[39m
+[32mCJS[39m [1mdist/index.js            [22m[32m1000.00 B[39m
 [32mCJS[39m [1mdist/custom/index.js     [22m[32m1.97 KB[39m
-[32mCJS[39m [1mdist/canvas/index.js     [22m[32m4.93 KB[39m
-[32mCJS[39m [1mdist/index.js            [22m[32m4.68 KB[39m
-[32mCJS[39m [1mdist/webgl/index.js      [22m[32m4.93 KB[39m
-[32mCJS[39m [1mdist/svg/index.js        [22m[32m4.93 KB[39m
-[32mCJS[39m [1mdist/dom/index.js        [22m[32m4.93 KB[39m
-[32mCJS[39m [1mdist/custom/index.js.map [22m[32m1.04 KB[39m
-[32mCJS[39m [1mdist/canvas/index.js.map [22m[32m8.50 KB[39m
-[32mCJS[39m [1mdist/index.js.map        [22m[32m8.77 KB[39m
-[32mCJS[39m [1mdist/dom/index.js.map    [22m[32m8.50 KB[39m
-[32mCJS[39m [1mdist/svg/index.js.map    [22m[32m8.50 KB[39m
-[32mCJS[39m [1mdist/webgl/index.js.map  [22m[32m8.50 KB[39m
-[32mCJS[39m ⚡️ Build success in 9ms
-[32mESM[39m [1mdist/index.mjs            [22m[32m3.05 KB[39m
+[32mCJS[39m [1mdist/svg/index.js        [22m[32m3.47 KB[39m
+[32mCJS[39m [1mdist/dom/index.js.map    [22m[32m5.20 KB[39m
+[32mCJS[39m [1mdist/webgl/index.js.map  [22m[32m3.98 KB[39m
+[32mCJS[39m [1mdist/canvas/index.js.map [22m[32m3.66 KB[39m
+[32mCJS[39m [1mdist/custom/index.js.map [22m[32m1.05 KB[39m
+[32mCJS[39m [1mdist/index.js.map        [22m[32m172.00 B[39m
+[32mCJS[39m [1mdist/svg/index.js.map    [22m[32m5.17 KB[39m
+[32mCJS[39m ⚡️ Build success in 13ms
+[32mESM[39m [1mdist/canvas/index.mjs     [22m[32m1.60 KB[39m
+[32mESM[39m [1mdist/dom/index.mjs        [22m[32m2.53 KB[39m
+[32mESM[39m [1mdist/svg/index.mjs        [22m[32m2.43 KB[39m
+[32mESM[39m [1mdist/webgl/index.mjs      [22m[32m1.78 KB[39m
 [32mESM[39m [1mdist/custom/index.mjs     [22m[32m325.00 B[39m
-[32mESM[39m [1mdist/canvas/index.mjs     [22m[32m3.90 KB[39m
-[32mESM[39m [1mdist/webgl/index.mjs      [22m[32m3.90 KB[39m
-[32mESM[39m [1mdist/svg/index.mjs        [22m[32m3.90 KB[39m
-[32mESM[39m [1mdist/dom/index.mjs        [22m[32m3.90 KB[39m
-[32mESM[39m [1mdist/custom/index.mjs.map [22m[32m896.00 B[39m
-[32mESM[39m [1mdist/index.mjs.map        [22m[32m8.70 KB[39m
-[32mESM[39m [1mdist/canvas/index.mjs.map [22m[32m8.36 KB[39m
-[32mESM[39m [1mdist/webgl/index.mjs.map  [22m[32m8.36 KB[39m
-[32mESM[39m [1mdist/dom/index.mjs.map    [22m[32m8.36 KB[39m
-[32mESM[39m [1mdist/svg/index.mjs.map    [22m[32m8.36 KB[39m
-[32mESM[39m ⚡️ Build success in 9ms
+[32mESM[39m [1mdist/index.mjs            [22m[32m109.00 B[39m
+[32mESM[39m [1mdist/canvas/index.mjs.map [22m[32m3.55 KB[39m
+[32mESM[39m [1mdist/dom/index.mjs.map    [22m[32m5.09 KB[39m
+[32mESM[39m [1mdist/custom/index.mjs.map [22m[32m901.00 B[39m
+[32mESM[39m [1mdist/webgl/index.mjs.map  [22m[32m3.87 KB[39m
+[32mESM[39m [1mdist/svg/index.mjs.map    [22m[32m5.06 KB[39m
+[32mESM[39m [1mdist/index.mjs.map        [22m[32m128.00 B[39m
+[32mESM[39m ⚡️ Build success in 13ms
 DTS Build start
-DTS ⚡️ Build success in 656ms
-DTS dist/index.d.mts          1.06 KB
-DTS dist/canvas/index.d.mts   698.00 B
-DTS dist/custom/index.d.mts   406.00 B
-DTS dist/dom/index.d.mts      109.00 B
-DTS dist/svg/index.d.mts      109.00 B
-DTS dist/webgl/index.d.mts    109.00 B
-DTS dist/types-CQumYkAz.d.mts 2.31 KB
-DTS dist/index.d.ts           1.06 KB
-DTS dist/canvas/index.d.ts    697.00 B
-DTS dist/custom/index.d.ts    405.00 B
-DTS dist/dom/index.d.ts       107.00 B
-DTS dist/svg/index.d.ts       107.00 B
-DTS dist/webgl/index.d.ts     107.00 B
-DTS dist/types-CQumYkAz.d.ts  2.31 KB
+DTS ⚡️ Build success in 1024ms
+DTS dist/index.d.mts        61.00 B
+DTS dist/canvas/index.d.mts 547.00 B
+DTS dist/custom/index.d.mts 396.00 B
+DTS dist/dom/index.d.mts    552.00 B
+DTS dist/svg/index.d.mts    564.00 B
+DTS dist/webgl/index.d.mts  559.00 B
+DTS dist/index.d.ts         61.00 B
+DTS dist/canvas/index.d.ts  547.00 B
+DTS dist/custom/index.d.ts  396.00 B
+DTS dist/dom/index.d.ts     552.00 B
+DTS dist/svg/index.d.ts     564.00 B
+DTS dist/webgl/index.d.ts   559.00 B

@@ -1,19 +1,12 @@
 "use client";
 
-import { LifeGameCanvas, useLifeGame } from "@nolix2/react";
-import type { LifeGameHandle } from "@nolix2/react/dist/src/types";
-import { useEffect, useReducer, useRef } from "react";
+import { LifeGameCanvas, type LifeGameHandle, useLifeGame } from "@nolix2/react";
+import { useReducer, useRef } from "react";
 
 export default function Home() {
 	const { lifegame } = useLifeGame();
 
-	useEffect(() => {
-		console.log({ lifegame });
-	}, [lifegame]);
-
 	const [a, setA] = useReducer((prev) => !prev, false);
-
-	console.log(a);
 
 	const ref = useRef<LifeGameHandle>(null);
 
@@ -24,7 +17,7 @@ export default function Home() {
 				// width={20}
 				// columns={20}
 				// rows={200}
-				aliveColor={a ? "red" : undefined}
+				// aliveColor={"red"}
 				// interval={1000}
 				// defaultCells={[
 				// 	[1, 3],

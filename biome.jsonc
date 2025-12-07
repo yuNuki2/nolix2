@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!**/node_modules", "!**/dist"]
+		"includes": ["**", "!**/node_modules", "!**/dist", "!**/.next"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -31,6 +31,11 @@
 			"source": {
 				"organizeImports": "off"
 			}
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
 		}
 	}
 }

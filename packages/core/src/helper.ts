@@ -23,10 +23,6 @@ export function noDifference(prev: Cell[][], curr: Cell[][]): boolean {
 	return true;
 }
 
-export function clone(universe: Cell[][]): Cell[][] {
-	return universe.map((rows) => rows.concat());
-}
-
 export function generateRandom(seed: string | undefined) {
 	return seedrandom(seed);
 }

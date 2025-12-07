@@ -1,31 +1,23 @@
 import type { Cell } from "@nolix2/core";
 import {
 	getSize,
-	isCanvasElement,
-	normalizeObject,
-	resolveElement,
-	resolveOptions,
-} from "../../helper";
-import type {
-	LifeGameRendererOptions,
-	LifeGameRendererOptionsWithDefaults,
-	Renderer,
-} from "../../types";
+	normalizeLifeGameRendererOptions,
+	type LifeGameRendererConfig,
+	type LifeGameRendererOptions,
+	type Renderer,
+} from "@nolix2/renderer";
+import { isCanvasElement, resolveElement } from "../../helper";
 
 export class WebGLRenderer implements Renderer {
 	private readonly _canvas: HTMLCanvasElement;
 	private readonly _ctx: WebGLRenderingContext | null;
-	private _options: LifeGameRendererOptionsWithDefaults;
-
-	private readonly _cellSize: number;
-	private readonly _columns: number;
-	private readonly _rows: number;
+	private _options: LifeGameRendererConfig;
 
 	constructor(
-		target: string | HTMLCanvasElement | null,
+		container: string | HTMLCanvasElement | null,
 		options: LifeGameRendererOptions = {},
 	) {
-		const el = resolveElement(target);
+		const el = resolveElement(container);
 		if (isCanvasElement(el)) {
 			this._canvas = el;
 		} else {
@@ -39,28 +31,22 @@ export class WebGLRenderer implements Renderer {
 			throw new Error("2D context not supported");
 		}
 
-		this._options = resolveOptions(options);
+		const normalizedOptions = normalizeLifeGameRendererOptions(options);
 
-		this._canvas.width = this._options.width;
-		this._canvas.height = this._options.height;
+		this._canvas.width = normalizedOptions.width ?? window.innerWidth;
+		this._canvas.height = normalizedOptions.height ?? window.innerHeight;
 
-		const { cellSize, columns, rows } = getSize(
-			this._canvas,
-			this._options.columns,
-			this._options.rows,
-		);
+		const config = getSize(this._canvas, options);
 
-		this._cellSize = cellSize;
-		this._columns = columns;
-		this._rows = rows;
+		this._options = { ...normalizedOptions, ...config };
 	}
 
 	get options() {
 		return this._options;
 	}
 
-	public update(value: Partial<LifeGameRendererOptions>) {
-		this._options = Object.assign({}, this._options, normalizeObject(value));
+	public update(value: LifeGameRendererOptions) {
+		this._options = normalizeLifeGameRendererOptions(this._options, value);
 	}
 
 	public mount() {}

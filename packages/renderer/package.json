@@ -1,5 +1,5 @@
 {
-	"name": "@nolix2/utils",
+	"name": "@nolix2/renderer",
 	"version": "1.0.0",
 	"description": "",
 	"license": "MIT",
@@ -11,7 +11,7 @@
 		"./dist/**/*.d.ts"
 	],
 	"scripts": {
-		"build": "tsc"
+		"build": "tsup"
 	},
 	"homepage": "https://example.com",
 	"repository": {

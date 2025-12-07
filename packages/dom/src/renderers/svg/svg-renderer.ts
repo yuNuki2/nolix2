@@ -1,62 +1,85 @@
 import type { Cell } from "@nolix2/core";
 import {
 	getSize,
-	isSVGElement,
-	normalizeObject,
-	resolveElement,
-	resolveOptions,
-} from "../../helper";
-import type {
-	LifeGameRendererOptions,
-	LifeGameRendererOptionsWithDefaults,
-	Renderer,
-} from "../../types";
+	normalizeLifeGameRendererOptions,
+	type LifeGameRendererConfig,
+	type LifeGameRendererOptions,
+	type Renderer,
+} from "@nolix2/renderer";
+import { isSVGElement, resolveElement } from "../../helper";
 
 export class SVGRenderer implements Renderer {
 	private readonly _svg: SVGSVGElement;
-	private _options: LifeGameRendererOptionsWithDefaults;
+	private _options: LifeGameRendererConfig;
 
-	private readonly _cellSize: number;
-	private readonly _columns: number;
-	private readonly _rows: number;
+	private readonly _cells: SVGRectElement[][];
 
 	constructor(
-		target: string | HTMLElement | SVGSVGElement | null,
+		container: string | HTMLElement | SVGSVGElement | null,
 		options: LifeGameRendererOptions = {},
 	) {
-		const el = resolveElement(target);
+		const el = resolveElement(container);
 		if (isSVGElement(el)) {
 			this._svg = el;
 		} else {
-			const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-			el.appendChild(svg);
-			this._svg = svg;
+			this._svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			el.appendChild(this._svg);
 		}
 
-		this._options = resolveOptions(options);
+		this._svg.setAttribute("width", String(options.width ?? window.innerWidth));
+		this._svg.setAttribute("height", String(options.height ?? window.innerHeight));
+		this._svg.style.display = "block";
 
-		const { cellSize, columns, rows } = getSize(
-			this._svg,
-			this._options.columns,
-			this._options.rows,
-		);
+		const normalizedOptions = normalizeLifeGameRendererOptions(options);
 
-		this._cellSize = cellSize;
-		this._columns = columns;
-		this._rows = rows;
+		const config = getSize(this._svg, options);
+
+		this._options = { ...normalizedOptions, ...config };
+
+		this._cells = [];
+
+		for (let y = 0; y < this._options.rows; y++) {
+			const row: SVGRectElement[] = [];
+
+			for (let x = 0; x < this._options.columns; x++) {
+				const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+
+				rect.setAttribute("x", String(x * this._options.cellSize));
+				rect.setAttribute("y", String(y * this._options.cellSize));
+				rect.setAttribute("width", String(this._options.cellSize));
+				rect.setAttribute("height", String(this._options.cellSize));
+				rect.setAttribute("fill", "#fff");
+				rect.setAttribute("stroke", this._options.strokeColor);
+
+				this._svg.appendChild(rect);
+				row.push(rect);
+			}
+
+			this._cells.push(row);
+		}
 	}
 
 	get options() {
 		return this._options;
 	}
 
-	public update(value: Partial<LifeGameRendererOptions>) {
-		this._options = Object.assign({}, this._options, normalizeObject(value));
+	public update(value: LifeGameRendererOptions) {
+		this._options = normalizeLifeGameRendererOptions(this._options, value);
 	}
 
 	public mount() {}
 
-	public render(universe: Cell[][]) {}
+	public render(universe: Cell[][]) {
+		for (let y = 0; y < this._options.rows; y++) {
+			for (let x = 0; x < this._options.columns; x++) {
+				const alive = universe[y]?.[x] === 1;
+				this._cells[y]?.[x]?.setAttribute(
+					"fill",
+					alive ? this._options.aliveColor : this._options.deadColor,
+				);
+			}
+		}
+	}
 
 	public unmount() {
 		this._svg.remove();

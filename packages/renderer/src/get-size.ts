@@ -1,0 +1,32 @@
+export function getSize(
+	el: Element,
+	size: {
+		columns?: number | undefined;
+		rows?: number | undefined;
+	} = {},
+) {
+	const width = el instanceof HTMLCanvasElement ? el.width : el.clientWidth;
+	const height = el instanceof HTMLCanvasElement ? el.height : el.clientHeight;
+
+	let cellSize = 0;
+	let columns = size.columns;
+	let rows = size.rows;
+	if (rows !== undefined && columns !== undefined) {
+		cellSize = Math.min(width / rows, height / columns);
+	} else if (rows !== undefined) {
+		cellSize = height / rows;
+		columns = Math.ceil(width / cellSize);
+	} else if (columns !== undefined) {
+		cellSize = width / columns;
+		rows = Math.ceil(height / cellSize);
+	} else if (width > height) {
+		columns = 32;
+		cellSize = width / columns;
+		rows = Math.ceil(height / cellSize);
+	} else {
+		rows = 32;
+		cellSize = height / rows;
+		columns = Math.ceil(width / cellSize);
+	}
+	return { cellSize, columns, rows };
+}
