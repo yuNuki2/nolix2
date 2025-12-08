@@ -4,6 +4,8 @@ export type Size =
 	| { columns: number; rows: number }
 	| readonly [columns: number, rows: number];
 
+export type Strategy = "full" | "diff";
+
 export interface LifeGameCreateOptions {
 	/**
 	 * @example
@@ -37,6 +39,11 @@ export interface LifeGameCreateOptions {
 	seed?: string | undefined;
 
 	/**
+	 * @default full
+	 */
+	strategy?: Strategy | undefined;
+
+	/**
 	 * @default false
 	 */
 	wasm?: boolean | undefined;
@@ -47,10 +54,10 @@ export interface LifeGameGeneratorResult {
 	value: LifeGameGeneratorResultValue;
 }
 
-export interface LifeGameGeneratorResultValue {
+export type LifeGameGeneratorResultValue = {
 	cells: Cell[][];
 	generation: number;
-}
+};
 
 export interface LifeGame {
 	readonly cells: Cell[][];

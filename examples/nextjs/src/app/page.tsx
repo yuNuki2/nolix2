@@ -18,9 +18,10 @@ export default function Home() {
 		<div className="grid">
 			<LifeGameCanvas
 				ref={ref}
-				onNext={(e) => console.log("next", e.generation)}
+				// onNext={(e) => console.log("next", e.generation)}
 				onStart={() => console.log("start")}
 				onStop={() => console.log("ちんぽ")}
+				strategy="diff"
 				// width={300}
 				// height={200}
 				// style={{ position: "absolute", inset: 0, zIndex: -1, opacity: 0.25 }}

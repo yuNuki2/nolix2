@@ -26,3 +26,11 @@ export function noDifference(prev: Cell[][], curr: Cell[][]): boolean {
 export function generateRandom(seed: string | undefined) {
 	return seedrandom(seed);
 }
+
+export function diffIndexes(a: Uint8Array, b: Uint8Array) {
+	const changed: number[] = [];
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] ^ b[i]) changed.push(i);
+	}
+	return changed;
+}

@@ -13,17 +13,22 @@ export function createLifeGame(
 	options: LifeGameCreateOptions = {},
 ): LifeGame {
 	const [columns, rows] = isArray(size) ? size : [size.columns, size.rows];
-	const done = options.done ?? noDifference;
+	const { density = 0.4, done = noDifference, strategy = "full" } = options;
 
 	let universe = new Uint8Array(columns * rows);
 	let generation = 1;
+
+	let candidates = new Set<number>();
+
+	for (let i = 0; i < universe.length; i++) {
+		candidates.add(i);
+	}
 
 	if (options.defaultCells) {
 		for (const [x, y] of options.defaultCells) {
 			universe[getIndex(x, y)] = 1;
 		}
 	} else {
-		const density = options.density ?? 0.4;
 		const rng = generateRandom(options.seed);
 		universe = universe.map(() => binarize(rng() < density));
 	}
@@ -32,30 +37,64 @@ export function createLifeGame(
 		return y * columns + x;
 	}
 
+	function isOutOfBounds(x: number, y: number): boolean {
+		return x < 0 || y < 0 || x >= columns || y >= rows;
+	}
+
 	function countAliveNeighbors(x: number, y: number): number {
 		let count = 0;
 		for (const [dx, dy] of Δ) {
-			count += universe[getIndex(x + dx, y + dy)] ?? 0;
+			const nx = x + dx;
+			const ny = y + dy;
+			if (isOutOfBounds(nx, ny)) continue;
+			count += universe[getIndex(nx, ny)] ?? 0;
 		}
 		return count;
 	}
 
+	function computeNextCell(x: number, y: number, cell: number) {
+		const neighbors = countAliveNeighbors(x, y);
+		// セルが生きていたとき、周りに生きたセルが２つまたは３つあれば次も生きる
+		// セルが死んでいたとき、周りに生きたセルが３つあれば、生き返る
+		return binarize(cell ? neighbors === 2 || neighbors === 3 : neighbors === 3);
+	}
+
 	function nextGeneration() {
 		const next = universe.slice();
-		for (let y = 0; y < rows; y++) {
-			for (let x = 0; x < columns; x++) {
-				const index = getIndex(x, y);
-				const neighbors = countAliveNeighbors(x, y);
-				const cell = universe[index];
-				// セルが生きていたとき、周りに生きたセルが２つまたは３つあれば次も生きる
-				// セルが死んでいたとき、周りに生きたセルが３つあれば、生き返る
-				next[index] = binarize(
-					cell ? neighbors === 2 || neighbors === 3 : neighbors === 3,
-				);
+		const nextCandidates = new Set<number>();
+
+		function collectCanidates(x: number, y: number) {
+			for (const [dx, dy] of [[0, 0], ...Δ]) {
+				const nx = x + dx;
+				const ny = y + dy;
+				if (isOutOfBounds(nx, ny)) continue;
+				nextCandidates.add(getIndex(nx, ny));
 			}
 		}
+
+		if (strategy === "diff") {
+			for (const index of candidates) {
+				const x = index % columns;
+				const y = (index / columns) | 0;
+				const cell = universe[index];
+				const nextState = computeNextCell(x, y, cell);
+				if (cell ^ nextState) {
+					next[index] = nextState;
+					collectCanidates(x, y);
+				}
+			}
+		} else {
+			for (let i = 0; i < universe.length; i++) {
+				const x = i % columns;
+				const y = (i / columns) | 0;
+				const cell = universe[i];
+				next[i] = computeNextCell(x, y, cell);
+			}
+		}
+
 		universe.set(next);
 		generation = generation + 1;
+		candidates = nextCandidates;
 		return reshape(universe);
 	}
 
