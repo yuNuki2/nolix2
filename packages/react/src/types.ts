@@ -1,22 +1,23 @@
-import type { LifeGameGeneratorOptions } from "@nolix2/core";
+import type { LifeGameCreateOptions } from "@nolix2/core";
 import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@nolix2/process";
 import type { LifeGameRendererConfig, LifeGameRendererOptions } from "@nolix2/renderer";
 import type { ComponentProps } from "react";
 
-interface CanvasProps
-	extends Omit<ComponentProps<"canvas">, "height" | "onClick" | "width"> {}
-
-export interface LifeGameProps
-	extends CanvasProps,
-		LifeGameGeneratorOptions,
+interface LifeGameOptions
+	extends LifeGameCreateOptions,
 		LifeGameProcessorerOptions,
 		LifeGameRendererOptions {}
 
+export interface LifeGameProps extends LifeGameOptions {
+	canvasProps?: ComponentProps<"canvas"> | undefined;
+}
+
 export interface LifeGamePropsWithDefaults
-	extends CanvasProps,
-		LifeGameGeneratorOptions,
+	extends LifeGameCreateOptions,
 		LifeGameProcessorerOptions,
-		LifeGameRendererConfig {}
+		LifeGameRendererConfig {
+	canvasProps?: ComponentProps<"canvas"> | undefined;
+}
 
 export interface LifeGameContextValue {
 	value: {

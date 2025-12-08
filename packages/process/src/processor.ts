@@ -1,4 +1,4 @@
-import type { Cell, LifeGameGenerator } from "@nolix2/core";
+import type { Cell, LifeGame } from "@nolix2/core";
 import { normalizeLifeGameProcessorOptions } from "./helper";
 import type {
 	LifeGameProcessorerOptions,
@@ -14,10 +14,10 @@ export class LifeGameProcessor {
 	private _animationFrame: number | null = null;
 
 	private readonly _listeners = new Set<(cells: Cell[][]) => void>();
-	private readonly _generator: LifeGameGenerator;
+	private readonly _lifegame: LifeGame;
 
-	constructor(generator: LifeGameGenerator, options: LifeGameProcessorerOptions = {}) {
-		this._generator = generator;
+	constructor(lifegame: LifeGame, options: LifeGameProcessorerOptions = {}) {
+		this._lifegame = lifegame;
 		this.#options = normalizeLifeGameProcessorOptions(options);
 	}
 
@@ -33,7 +33,7 @@ export class LifeGameProcessor {
 	}
 
 	public next(timestamp?: DOMHighResTimeStamp) {
-		const result = this._generator.next();
+		const result = this._lifegame.next();
 		this._cells = result.value.cells;
 		for (const listener of this._listeners) {
 			listener(this._cells);
@@ -54,7 +54,8 @@ export class LifeGameProcessor {
 	}
 
 	public stop() {
-		if (!this._isProcessing || this._animationFrame === null) return;
+		console.log("stop", this._isProcessing, this._animationFrame, this._listeners);
+		if (!this._isProcessing || this._animationFrame == null) return;
 		cancelAnimationFrame(this._animationFrame);
 		this._isProcessing = false;
 		this._animationFrame = null;
@@ -72,12 +73,13 @@ export class LifeGameProcessor {
 		) {
 			const result = this.next(timestamp);
 
-			console.log({ done: result.done });
+			// console.log({ done: result.done });
 
 			if (result.done) return stop();
 			this._lastTimestamp = timestamp;
 		}
 
 		this._animationFrame = requestAnimationFrame(this.loop.bind(this));
+		// console.log("last:", this._animationFrame);
 	}
 }

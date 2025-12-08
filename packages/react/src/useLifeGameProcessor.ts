@@ -1,4 +1,4 @@
-import LifeGame, { type Cell } from "@nolix2/core";
+import { createLifeGame, type Cell } from "@nolix2/core";
 import LifeGameProcessor from "@nolix2/process";
 import type { LifeGameRendererConfig } from "@nolix2/renderer";
 import { useRef } from "react";
@@ -13,7 +13,7 @@ export function useLifeGameProcessor(
 
 	useSafeLayoutEffect(() => {
 		const { interval, ...rendererOptions } = props;
-		const generator = LifeGame.generate([props.columns, props.rows], rendererOptions);
+		const generator = createLifeGame([props.columns, props.rows], rendererOptions);
 		game.current = new LifeGameProcessor(generator, { interval });
 
 		const unsubscribe = game.current.subscribe((universe) => callback?.(universe, props));
@@ -24,9 +24,10 @@ export function useLifeGameProcessor(
 
 		return () => {
 			unsubscribe();
+			game.current?.stop();
 			game.current = null;
 		};
 	}, [callback, props]);
 
-	return game.current;
+	return game;
 }

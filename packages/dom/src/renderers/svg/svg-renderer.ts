@@ -1,6 +1,6 @@
 import type { Cell } from "@nolix2/core";
 import {
-	getSize,
+	computeGridSize,
 	normalizeLifeGameRendererOptions,
 	type LifeGameRendererConfig,
 	type LifeGameRendererOptions,
@@ -32,9 +32,9 @@ export class SVGRenderer implements Renderer {
 
 		const normalizedOptions = normalizeLifeGameRendererOptions(options);
 
-		const config = getSize(this._svg, options);
+		const size = computeGridSize(this._svg, options);
 
-		this._options = { ...normalizedOptions, ...config };
+		this._options = { ...normalizedOptions, ...size };
 
 		this._cells = [];
 
@@ -49,7 +49,9 @@ export class SVGRenderer implements Renderer {
 				rect.setAttribute("width", String(this._options.cellSize));
 				rect.setAttribute("height", String(this._options.cellSize));
 				rect.setAttribute("fill", "#fff");
-				rect.setAttribute("stroke", this._options.strokeColor);
+				if (this._options.strokeColor) {
+					rect.setAttribute("stroke", this._options.strokeColor);
+				}
 
 				this._svg.appendChild(rect);
 				row.push(rect);

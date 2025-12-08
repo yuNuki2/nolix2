@@ -13,10 +13,18 @@ const LifeGameCanvas = forwardRef<LifeGameHandle, LifeGameProps>((props, ref) =>
 
 	useSafeLayoutEffect(() => {
 		if (!canvas.current) return;
-		ctx.current = canvas.current.getContext("2d");
 
-		canvas.current.width = props.width ?? window.innerWidth;
-		canvas.current.height = props.height ?? window.innerHeight;
+		const dpr = props.devicePixelRatio || window.devicePixelRatio || 1;
+		const width = props.width || window.innerWidth;
+		const height = props.height || window.innerHeight;
+
+		canvas.current.width = width * dpr;
+		canvas.current.height = height * dpr;
+
+		canvas.current.style.width = `${width}px`;
+		canvas.current.style.height = `${height}px`;
+
+		ctx.current = canvas.current.getContext("2d");
 
 		return () => {
 			canvas.current?.remove();
@@ -30,22 +38,22 @@ const LifeGameCanvas = forwardRef<LifeGameHandle, LifeGameProps>((props, ref) =>
 	const context = useContext(LifeGameContext);
 
 	useEffect(() => {
-		if (!game) return;
-		context?.setValue(canvas.current?.id || "lifegame", game);
+		if (!game.current) return;
+		context?.setValue(canvas.current?.id || "lifegame", game.current);
 	}, [context, game]);
 
 	useEffect(() => {
-		game?.update(props);
-	}, [props, game?.update]);
+		game.current?.update(props);
+	}, [props, game.current?.update]);
 
 	useImperativeHandle(ref, () => ({
-		start: () => game?.start(),
-		stop: () => game?.stop(),
-		next: () => game?.next(),
-		prev: () => game?.prev(),
+		start: () => game.current?.start(),
+		stop: () => game.current?.stop(),
+		next: () => game.current?.next(),
+		prev: () => game.current?.prev(),
 	}));
 
-	return <canvas ref={canvas} />;
+	return <canvas ref={canvas} {...props.canvasProps} />;
 });
 
 export default LifeGameCanvas;

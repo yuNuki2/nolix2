@@ -4,7 +4,7 @@ export type Size =
 	| { columns: number; rows: number }
 	| readonly [columns: number, rows: number];
 
-export interface LifeGameGeneratorOptions {
+export interface LifeGameCreateOptions {
 	/**
 	 * @example
 	 * glider is [[1,3],[2,3],[3,3],[3,2],[2,1]]
@@ -35,6 +35,16 @@ export interface LifeGameGeneratorOptions {
 	 * @description
 	 */
 	seed?: string | undefined;
+
+	/**
+	 * @default false
+	 */
+	wasm?: boolean | undefined;
+}
+
+export interface LifeGameGeneratorResult {
+	done: boolean;
+	value: LifeGameGeneratorResultValue;
 }
 
 export interface LifeGameGeneratorResultValue {
@@ -42,5 +52,9 @@ export interface LifeGameGeneratorResultValue {
 	generation: number;
 }
 
-export interface LifeGameGenerator
-	extends Generator<LifeGameGeneratorResultValue, LifeGameGeneratorResultValue, never> {}
+export interface LifeGame {
+	readonly cells: Cell[][];
+	readonly generation: number;
+	next: () => LifeGameGeneratorResult;
+	toggle: (x: number, y: number) => void;
+}

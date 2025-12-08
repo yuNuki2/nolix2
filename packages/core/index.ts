@@ -1,13 +1,14 @@
-import { LifeGame } from "./src/core";
+import { createLifeGame } from "./src/core";
 
 export type {
 	Cell,
-	LifeGameGenerator,
-	LifeGameGeneratorOptions,
+	LifeGame,
+	LifeGameCreateOptions,
+	LifeGameGeneratorResult,
 	LifeGameGeneratorResultValue,
 	Size,
 } from "./src/types";
 
-export { LifeGame } from "./src/core";
+export { createLifeGame } from "./src/core";
 
-export default LifeGame;
+export default createLifeGame;

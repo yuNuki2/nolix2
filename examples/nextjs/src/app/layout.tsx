@@ -2,6 +2,7 @@ import { LifeGameProvider } from "@nolix2/react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import type { ReactNode } from "react";
+import A from "./A";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,7 +28,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<LifeGameProvider>{children}</LifeGameProvider>
+				<LifeGameProvider>
+					<A />
+					{children}
+				</LifeGameProvider>
 			</body>
 		</html>
 	);

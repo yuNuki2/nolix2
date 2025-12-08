@@ -1,10 +1,12 @@
-export function getSize(
+import type { GridSize } from "./types";
+
+export function computeGridSize(
 	el: Element,
 	size: {
 		columns?: number | undefined;
 		rows?: number | undefined;
 	} = {},
-) {
+): GridSize {
 	const width = el instanceof HTMLCanvasElement ? el.width : el.clientWidth;
 	const height = el instanceof HTMLCanvasElement ? el.height : el.clientHeight;
 

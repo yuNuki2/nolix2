@@ -66,8 +66,9 @@ export interface LifeGameRendererOptions {
 
 	/**
 	 * @default #c8ebeb
+	 * if false, hide stroke
 	 */
-	strokeColor?: string | undefined;
+	strokeColor?: false | string | undefined;
 
 	/**
 	 * @default window.innerWidth
@@ -76,14 +77,30 @@ export interface LifeGameRendererOptions {
 	width?: number | undefined;
 }
 
-export type LifeGameRendererConfig = SomeStrictRequired<
-	LifeGameRendererOptions,
-	keyof typeof DEFAULT_RENDERER_OPTIONS
-> & {
+export interface GridSize {
 	cellSize: number;
 	columns: number;
 	rows: number;
-};
+}
+
+export type LifeGameRendererConfig = SomeStrictRequired<
+	LifeGameRendererOptions,
+	keyof typeof DEFAULT_RENDERER_OPTIONS
+> &
+	GridSize;
+
+export interface LifeGameCanvasRendererOptions extends LifeGameRendererOptions {
+	/**
+	 * @default false
+	 */
+	useWorker?: boolean | undefined;
+}
+
+export type LifeGameCanvasRendererConfig = SomeStrictRequired<
+	LifeGameCanvasRendererOptions,
+	keyof typeof DEFAULT_RENDERER_OPTIONS
+> &
+	GridSize;
 
 export interface Renderer<O = LifeGameRendererConfig> {
 	readonly config?: O;

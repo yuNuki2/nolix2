@@ -1,6 +1,6 @@
 import type { Cell } from "@nolix2/core";
 import {
-	getSize,
+	computeGridSize,
 	normalizeLifeGameRendererOptions,
 	renderCanvas,
 	type LifeGameRendererConfig,
@@ -38,9 +38,9 @@ export class CanvasRenderer implements Renderer {
 		this._canvas.width = normalizedOptions.width ?? window.innerWidth;
 		this._canvas.height = normalizedOptions.height ?? window.innerHeight;
 
-		const config = getSize(this._canvas, options);
+		const size = computeGridSize(this._canvas, options);
 
-		this.#options = { ...normalizedOptions, ...config };
+		this.#options = { ...normalizedOptions, ...size };
 	}
 
 	get options() {

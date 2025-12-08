@@ -16,7 +16,9 @@ export function renderCanvas(
 				ctx.fillStyle = config.deadColor;
 			}
 
-			ctx.strokeStyle = config.strokeColor;
+			if (config.strokeColor) {
+				ctx.strokeStyle = config.strokeColor;
+			}
 
 			const { cellSize } = config;
 

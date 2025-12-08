@@ -1,4 +1,4 @@
-import { getSize, normalizeLifeGameRendererOptions } from "@nolix2/renderer";
+import { computeGridSize, normalizeLifeGameRendererOptions } from "@nolix2/renderer";
 import { useMemo, useState, type RefObject } from "react";
 import { useSafeLayoutEffect } from "./hooks";
 import type { LifeGameProps, LifeGamePropsWithDefaults } from "./types";
@@ -16,7 +16,7 @@ export function useLifeGameProps(ref: RefObject<Element>, props: LifeGameProps) 
 
 	useSafeLayoutEffect(() => {
 		if (!ref.current) return;
-		const config = getSize(ref.current, normalizedProps);
+		const config = computeGridSize(ref.current, normalizedProps);
 		setNormalizedPropsWithSize({
 			...normalizedProps,
 			...config,
