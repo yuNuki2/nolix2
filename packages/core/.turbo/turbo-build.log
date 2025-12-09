@@ -17,8 +17,8 @@ Entry module "dist/index.js" is using named and default exports together. Consum
 [32mESM[39m ⚡️ Build success in 43ms
 [32mCJS[39m [1mdist/index.js     [22m[32m1.80 KB[39m
 [32mCJS[39m [1mdist/index.js.map [22m[32m13.72 KB[39m
-[32mCJS[39m ⚡️ Build success in 42ms
+[32mCJS[39m ⚡️ Build success in 43ms
 DTS Build start
-DTS ⚡️ Build success in 312ms
+DTS ⚡️ Build success in 287ms
 DTS dist/index.d.mts 1.57 KB
 DTS dist/index.d.ts  1.57 KB

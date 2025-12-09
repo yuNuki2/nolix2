@@ -3,21 +3,25 @@ import {
 	computeGridSize,
 	normalizeLifeGameRendererOptions,
 	renderCanvas,
-	type LifeGameRendererConfig,
+	type LifeGameCanvasRendererConfig,
+	type LifeGameCanvasRendererOptions,
 	type LifeGameRendererOptions,
 	type Renderer,
 } from "@nolix2/renderer";
 import { isCanvasElement, resolveElement } from "../../helper";
 
 export class CanvasRenderer implements Renderer {
-	#options: LifeGameRendererConfig;
+	#options: LifeGameCanvasRendererConfig;
 
 	private readonly _canvas: HTMLCanvasElement;
 	private readonly _ctx: CanvasRenderingContext2D | null;
 
+	private readonly _worker: Worker | undefined;
+	private readonly _channel: MessageChannel | undefined;
+
 	constructor(
 		container: string | HTMLElement | null,
-		options: LifeGameRendererOptions = {},
+		options: LifeGameCanvasRendererOptions = {},
 	) {
 		const el = resolveElement(container);
 		if (isCanvasElement(el)) {
@@ -38,6 +42,14 @@ export class CanvasRenderer implements Renderer {
 		this._canvas.width = normalizedOptions.width ?? window.innerWidth;
 		this._canvas.height = normalizedOptions.height ?? window.innerHeight;
 
+		if (options.useWorker) {
+			const scriptURL = new URL("./worker.js", import.meta.url);
+			this._worker = new Worker(scriptURL);
+			this._channel = new MessageChannel();
+			const offscreen = this._canvas.transferControlToOffscreen();
+			this._worker.postMessage({ canvas: offscreen, port: this._channel.port1 });
+		}
+
 		const size = computeGridSize(this._canvas, options);
 
 		this.#options = { ...normalizedOptions, ...size };
@@ -56,7 +68,11 @@ export class CanvasRenderer implements Renderer {
 	}
 
 	public render(universe: Cell[][]) {
-		renderCanvas(this._ctx, universe, this.#options);
+		if (this.#options.useWorker) {
+			this._worker?.postMessage({ universe, config: this.#options });
+		} else {
+			renderCanvas(this._ctx, universe, this.#options);
+		}
 	}
 
 	public unmount() {

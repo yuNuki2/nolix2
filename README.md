@@ -1,6 +1,10 @@
+<div align="center">
+<img src="media/logo.svg" alt="logo" height="400">
+</div>
+
 ## Install 
 ```shell
-
+npm i @noli2/react
 ```
 
 ## Usage

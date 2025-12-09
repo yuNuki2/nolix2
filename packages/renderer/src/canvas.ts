@@ -1,7 +1,7 @@
 import type { Cell, LifeGameRendererConfig } from "./types";
 
 export function renderCanvas(
-	ctx: CanvasRenderingContext2D | null,
+	ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D | null,
 	universe: Cell[][],
 	config: LifeGameRendererConfig,
 ) {

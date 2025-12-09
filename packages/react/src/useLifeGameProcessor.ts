@@ -1,13 +1,16 @@
 import { createLifeGame, type Cell } from "@nolix2/core";
 import LifeGameProcessor from "@nolix2/process";
-import type { LifeGameRendererConfig } from "@nolix2/renderer";
+import type { LifeGameCanvasRendererConfig } from "@nolix2/renderer";
 import { useRef } from "react";
 import { useSafeLayoutEffect } from "./hooks";
 import type { LifeGamePropsWithDefaults } from "./types";
 
 export function useLifeGameProcessor(
 	props: LifeGamePropsWithDefaults,
-	callback?: (universe: Cell[][], config: LifeGameRendererConfig) => void,
+	callback?: (
+		universe: Cell[][],
+		config: LifeGameCanvasRendererConfig,
+	) => void | (() => void),
 ) {
 	const game = useRef<LifeGameProcessor | null>(null);
 
