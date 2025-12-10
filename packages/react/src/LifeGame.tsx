@@ -1,5 +1,6 @@
 import type { LifeGameHandle } from "@nolix2/process";
 import { renderCanvas } from "@nolix2/renderer";
+import { getWorker, initCanvas, updateCanvasConfig } from "@nolix2/worker";
 import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from "react";
 import { LifeGameContext } from "./context";
 import { useSafeLayoutEffect } from "./hooks";
@@ -30,66 +31,55 @@ const LifeGameCanvas = forwardRef<LifeGameHandle, LifeGameProps>((props, ref) =>
 		return () => {
 			canvas.current?.remove();
 		};
-	}, [props.height, props.width]);
+	}, [props.devicePixelRatio, props.height, props.width]);
 
 	useEffect(() => {
 		if (!canvas.current) return;
 		if (props.useWorker) {
-			const scriptURL = new URL("./worker.js", import.meta.url);
-			worker.current = new Worker(scriptURL);
+			worker.current = getWorker();
 			channel.current = new MessageChannel();
 			offscreen.current = canvas.current.transferControlToOffscreen();
 			if (!offscreen.current) return;
-			console.log({ offscreen });
 			const port = channel.current.port1;
-			worker.current.postMessage({ canvas: offscreen.current, port }, [
-				offscreen.current,
-				port,
-			]);
+			initCanvas(worker.current, offscreen.current, port);
 		} else {
 			ctx.current = canvas.current.getContext("2d");
 		}
 	}, [props.useWorker]);
 
 	const normalizedProps = useLifeGameProps(canvas, props);
-	const game = useLifeGameProcessor(normalizedProps, (universe, props) => {
-		if (props.useWorker && worker.current && channel.current) {
-			console.log("use worker", { offscreen });
-			const {
-				width,
-				height,
-				rows,
-				columns,
-				aliveColor,
-				deadColor,
-				strokeColor,
-				cellSize,
-			} = props;
-			worker.current.postMessage({
-				universe,
-				config: {
-					width,
-					height,
-					rows,
-					columns,
-					aliveColor,
-					deadColor,
-					strokeColor,
-					cellSize,
-				},
-			});
+	const game = useLifeGameProcessor(normalizedProps);
+
+	useEffect(() => {
+		const props = normalizedProps;
+		if (props.useWorker) {
+			if (!worker.current || !channel.current) return;
+			updateCanvasConfig(worker.current, props);
 
 			channel.current.port2.onmessage = (e) => {
 				props.onRender?.();
 			};
 
 			return () => {
+				channel.current?.port2.postMessage({ type: "cleanup" });
 				channel.current?.port2.close();
 			};
-		} else {
-			renderCanvas(ctx.current, universe, props);
 		}
-	});
+
+		const unsubscribe = game.current?.subscribe((universe) =>
+			renderCanvas(ctx.current, universe, props),
+		);
+
+		if (props.mode === "auto") {
+			game.current?.start();
+		}
+
+		return () => {
+			unsubscribe?.();
+			game.current?.stop();
+		};
+	}, [game, normalizedProps]);
+
 	const context = useContext(LifeGameContext);
 
 	useEffect(() => {

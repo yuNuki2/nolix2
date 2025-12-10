@@ -22,7 +22,7 @@ export default function Home() {
 				onStart={() => console.log("start")}
 				onStop={() => console.log("ちんぽ")}
 				strategy="diff"
-				// useWorker
+				useWorker
 				// width={300}
 				// height={200}
 				// style={{ position: "absolute", inset: 0, zIndex: -1, opacity: 0.25 }}

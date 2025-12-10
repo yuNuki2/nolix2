@@ -6,10 +6,17 @@
 		"dev": "pnpm --filter ./examples/nextjs dev",
 		"build": "turbo build",
 		"build:watch": "turbo watch",
-		"check": "pnpm exec biome check --write"
+		"check": "pnpm exec biome check --write",
+		"version": "changeset version && pnpm install --lockfile-only",
+		"prepare": "lefthook install"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.8",
+		"@changesets/cli": "^2.29.8",
+		"@nolix2/dom": "workspace:*",
+		"@nolix2/react": "workspace:*",
+		"@playwright/test": "^1.57.0",
+		"@types/node": "^20",
 		"lefthook": "2.0.4",
 		"tsup": "^8.5.1",
 		"turbo": "^2.6.1",

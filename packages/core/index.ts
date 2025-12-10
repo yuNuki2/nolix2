@@ -1,4 +1,4 @@
-import { createLifeGame } from "./src/core";
+import { LifeGameCore } from "./src/core";
 
 export type {
 	Cell,
@@ -11,4 +11,4 @@ export type {
 
 export { createLifeGame } from "./src/core";
 
-export default createLifeGame;
+export default LifeGameCore;

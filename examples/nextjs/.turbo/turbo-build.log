@@ -8,21 +8,21 @@
 
  [37m[1m [22m[39m Creating an optimized production build ...
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
- [32m[1m✓[22m[39m Compiled successfully in 988.5ms
-[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[?25h[?25l [37m[1m [22m[39m Finished TypeScript in 979.8ms  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finished TypeScript in 979.8ms     [32m[1m✓[22m[39m Finished TypeScript in 979.8ms 
+ [32m[1m✓[22m[39m Compiled successfully in 954.1ms
+[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[?25h[?25l [37m[1m [22m[39m Finished TypeScript in 950.8ms  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finished TypeScript in 950.8ms     [32m[1m✓[22m[39m Finished TypeScript in 950.8ms 
 [?25l [37m[1m [22m[39m Collecting page data using 7 workers  [36m.[39m[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
-[2K[1G[?25h [37m[1m [22m[39m Collecting page data using 7 workers in 168.9ms     [32m[1m✓[22m[39m Collecting page data using 7 workers in 168.9ms 
+[2K[1G[?25h [37m[1m [22m[39m Collecting page data using 7 workers in 180.1ms     [32m[1m✓[22m[39m Collecting page data using 7 workers in 180.1ms 
 [?25l [37m[1m [22m[39m Generating static pages using 7 workers (0/4)  [36m[    ][39m[2K[1G[?25h[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 { context: {} }
 { a: {} }
 { context: {} }
-{ a: {} }
 { context: {} }
-[?25h [32m[1m✓[22m[39m Generating static pages using 7 workers (4/4) in 192.3ms
-[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization in 4.6ms     [32m[1m✓[22m[39m Finalizing page optimization in 4.6ms 
+{ a: {} }
+[?25h [32m[1m✓[22m[39m Generating static pages using 7 workers (4/4) in 197.0ms
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization in 5.0ms     [32m[1m✓[22m[39m Finalizing page optimization in 5.0ms 
 
 [4mRoute (app)[24m
 ┌ ○ /

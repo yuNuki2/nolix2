@@ -5,48 +5,19 @@
 
 [34mCLI[39m Building entry: {"index":"index.ts"}
 [34mCLI[39m Using tsconfig: tsconfig.json
-[34mCLI[39m Building entry: {"worker":"src/worker.ts"}
-[34mCLI[39m Using tsconfig: tsconfig.json
 [34mCLI[39m tsup v8.5.1
 [34mCLI[39m Using tsup config: /Users/hiroki_yano/workspace/packages/nolix2/packages/react/tsup.config.ts
-[34mCLI[39m tsup v8.5.1
-[34mCLI[39m Using tsup config: /Users/hiroki_yano/workspace/packages/nolix2/packages/react/tsup.config.ts
-[34mCLI[39m Target: esnext
 [34mCLI[39m Target: esnext
 [34mCLI[39m Cleaning output folder
 [34mESM[39m Build start
 [34mCJS[39m Build start
-[34mCLI[39m Cleaning output folder
-[34mESM[39m Build start
-[34mCJS[39m Build start
-[32mESM[39m [1mdist/worker.mjs     [22m[32m630.00 B[39m
-[32mESM[39m [1mdist/worker.mjs.map [22m[32m1.41 KB[39m
-[32mESM[39m ⚡️ Build success in 12ms
-[32mCJS[39m [1mdist/worker.js     [22m[32m667.00 B[39m
-[32mCJS[39m [1mdist/worker.js.map [22m[32m1.41 KB[39m
-[32mCJS[39m ⚡️ Build success in 12ms
-
-[90m[[90m12:39:45 AM[90m][39m [43m[30m WARN [39m[49m [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1m"import.meta" is not available with the "cjs" output format and will be empty[0m [empty-import-meta]
-
-    src/LifeGame.tsx:38:44:
-[37m      38 │       const scriptURL = new URL("./worker.js", [32mimport.meta[37m.url);
-         ╵                                                [32m~~~~~~~~~~~[0m
-
-  You need to set the output format to "esm" for "import.meta" to work correctly.
-
-
-
-[32mESM[39m [1mdist/index.mjs     [22m[32m5.79 KB[39m
-[32mESM[39m [1mdist/index.mjs.map [22m[32m11.26 KB[39m
-[32mESM[39m ⚡️ Build success in 26ms
-[32mCJS[39m [1mdist/index.js     [22m[32m7.81 KB[39m
-[32mCJS[39m [1mdist/index.js.map [22m[32m11.64 KB[39m
-[32mCJS[39m ⚡️ Build success in 27ms
+[32mESM[39m [1mdist/index.mjs     [22m[32m5.37 KB[39m
+[32mESM[39m [1mdist/index.mjs.map [22m[32m10.34 KB[39m
+[32mESM[39m ⚡️ Build success in 8ms
+[32mCJS[39m [1mdist/index.js     [22m[32m7.42 KB[39m
+[32mCJS[39m [1mdist/index.js.map [22m[32m10.70 KB[39m
+[32mCJS[39m ⚡️ Build success in 8ms
 DTS Build start
-DTS Build start
-DTS ⚡️ Build success in 653ms
-DTS dist/worker.d.mts 13.00 B
-DTS dist/worker.d.ts  13.00 B
-DTS ⚡️ Build success in 732ms
+DTS ⚡️ Build success in 390ms
 DTS dist/index.d.mts 1.11 KB
 DTS dist/index.d.ts  1.11 KB
