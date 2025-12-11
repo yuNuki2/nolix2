@@ -39,6 +39,11 @@ export interface LifeGameRendererOptions {
 	height?: number | undefined;
 
 	/**
+	 * @default 1
+	 */
+	lineWidth?: number | undefined;
+
+	/**
 	 * @default auto
 	 */
 	mode?: ProcessMode | undefined;
@@ -47,11 +52,6 @@ export interface LifeGameRendererOptions {
 	 * @default undefined
 	 */
 	onClick?: ((x: number, y: number) => void) | undefined;
-
-	/**
-	 * @default undefined
-	 */
-	onRender?: ((timestamp?: DOMHighResTimeStamp) => void) | undefined;
 
 	/**
 	 * @default undefined

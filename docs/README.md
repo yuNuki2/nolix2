@@ -4,7 +4,7 @@
 
 
 <div align="center">
-<img src="../media/logo.svg" alt="noli2" style="height: 150px">
+<img src="../media/logo.svg" alt="noli2" style="height: 200px">
 </div>
 
 ## Install 

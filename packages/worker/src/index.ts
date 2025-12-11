@@ -20,6 +20,7 @@ export function updateCanvasConfig(worker: Worker, config: LifeGameCanvasRendere
 			"aliveColor",
 			"deadColor",
 			"strokeColor",
+			"lineWidth",
 			"cellSize",
 			"mode",
 			"devicePixelRatio",

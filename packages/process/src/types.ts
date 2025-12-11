@@ -1,4 +1,4 @@
-import type { LifeGameGeneratorResultValue } from "@nolix2/core";
+import type { Cell, LifeGameGeneratorResultValue } from "@nolix2/core";
 import type { DEFAULT_PROCESSOR_OPTIONS } from "./constants";
 
 type StrictRequired<T> = {
@@ -39,9 +39,13 @@ export type LifeGameProcessorOptionsWithDefaults = SomeStrictRequired<
 	keyof typeof DEFAULT_PROCESSOR_OPTIONS
 >;
 
-export interface LifeGameHandle {
+export interface LifeGameProcessor {
+	readonly isProcessing: boolean;
+	subscribe: (callback: (universe: Cell[][]) => void) => () => void;
+	get: () => Cell[][];
 	next: () => void;
 	prev: () => void;
 	start: () => void;
 	stop: () => void;
+	update: (value: LifeGameProcessorerOptions) => void;
 }

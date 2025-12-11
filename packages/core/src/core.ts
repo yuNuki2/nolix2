@@ -143,7 +143,7 @@ export function createLifeGame(
 	};
 }
 
-export class LifeGameCore {
+export default class {
 	private constructor() {}
 	static create(...args: Parameters<typeof createLifeGame>) {
 		return createLifeGame(...args);

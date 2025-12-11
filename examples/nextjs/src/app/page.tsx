@@ -1,14 +1,15 @@
 "use client";
 
-import { LifeGameCanvas, type LifeGameHandle, useLifeGame } from "@nolix2/react";
+import { LifeGameDOM, useLifeGame } from "@nolix2/react";
 import { useEffect, useReducer, useRef } from "react";
+import { LifeGameProcessor } from "../../../../packages/process/dist";
 
 export default function Home() {
 	const { lifegame } = useLifeGame();
 
 	const [a, setA] = useReducer((prev) => !prev, false);
 
-	const ref = useRef<LifeGameHandle>(null);
+	const ref = useRef<LifeGameProcessor>(null);
 
 	useEffect(() => {
 		console.log(window.devicePixelRatio);
@@ -16,13 +17,14 @@ export default function Home() {
 
 	return (
 		<div className="grid">
-			<LifeGameCanvas
+			<LifeGameDOM
 				ref={ref}
-				// onNext={(e) => console.log("next", e.generation)}
+				// onNext={(e) => console.log("next", e.cells)}
 				onStart={() => console.log("start")}
 				onStop={() => console.log("ちんぽ")}
 				strategy="diff"
-				useWorker
+				// useWorker
+				lineWidth={2}
 				// width={300}
 				// height={200}
 				// style={{ position: "absolute", inset: 0, zIndex: -1, opacity: 0.25 }}

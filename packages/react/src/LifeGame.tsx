@@ -1,19 +1,29 @@
-import type { LifeGameHandle } from "@nolix2/process";
-import { renderCanvas } from "@nolix2/renderer";
+import type { LifeGameProcessor } from "@nolix2/process";
+import { getCanvasPoint, point2Cell, renderCanvas } from "@nolix2/renderer";
 import { getWorker, initCanvas, updateCanvasConfig } from "@nolix2/worker";
-import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from "react";
-import { LifeGameContext } from "./context";
-import { useSafeLayoutEffect } from "./hooks";
-import type { LifeGameProps } from "./types";
-import { useLifeGameProcessor } from "./useLifeGameProcessor";
-import { useLifeGameProps } from "./useLifeGameProps";
+import {
+	forwardRef,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	type ForwardedRef,
+	type MouseEvent,
+	type RefObject,
+} from "react";
+import { useLifeGameConfig } from "./hooks/useLifeGameConfig";
+import { useSafeLayoutEffect } from "./hooks/useSafeLayoutEffect";
+import type { LifeGameCanvasProps, WithDefaults } from "./types";
 
-const LifeGameCanvas = forwardRef<LifeGameHandle, LifeGameProps>((props, ref) => {
+interface LifeGameCanvasProps2 extends WithDefaults<LifeGameCanvasProps> {
+	game: LifeGameProcessor;
+	canvas: RefObject<HTMLCanvasElement>;
+}
+
+function LifeGameCanvasComponent(
+	props: LifeGameCanvasProps2,
+	ref: ForwardedRef<LifeGameProcessor>,
+) {
 	const canvas = useRef<HTMLCanvasElement>(null);
-	const offscreen = useRef<OffscreenCanvas | null>(null);
-	const ctx = useRef<CanvasRenderingContext2D | null>(null);
-	const worker = useRef<Worker | null>(null);
-	const channel = useRef<MessageChannel | null>(null);
 
 	useSafeLayoutEffect(() => {
 		if (!canvas.current) return;
@@ -33,72 +43,119 @@ const LifeGameCanvas = forwardRef<LifeGameHandle, LifeGameProps>((props, ref) =>
 		};
 	}, [props.devicePixelRatio, props.height, props.width]);
 
+	const { normalizedProps, game } = useLifeGameConfig(canvas, props);
+
+	useImperativeHandle(ref, () => game);
+
+	if (props.useWorker) {
+		return <LifeGameOffscreenCanvas {...normalizedProps} canvas={canvas} game={game} />;
+	}
+	return <LifeGameCanvasElement {...normalizedProps} canvas={canvas} game={game} />;
+}
+
+function LifeGameCanvasElement(props: LifeGameCanvasProps2) {
+	const { canvas, game } = props;
+
+	const ctx = useRef<CanvasRenderingContext2D | null>(null);
+
 	useEffect(() => {
 		if (!canvas.current) return;
-		if (props.useWorker) {
-			worker.current = getWorker();
-			channel.current = new MessageChannel();
-			offscreen.current = canvas.current.transferControlToOffscreen();
-			if (!offscreen.current) return;
-			const port = channel.current.port1;
-			initCanvas(worker.current, offscreen.current, port);
-		} else {
-			ctx.current = canvas.current.getContext("2d");
-		}
-	}, [props.useWorker]);
 
-	const normalizedProps = useLifeGameProps(canvas, props);
-	const game = useLifeGameProcessor(normalizedProps);
+		ctx.current = canvas.current.getContext("2d");
 
-	useEffect(() => {
-		const props = normalizedProps;
-		if (props.useWorker) {
-			if (!worker.current || !channel.current) return;
-			updateCanvasConfig(worker.current, props);
-
-			channel.current.port2.onmessage = (e) => {
-				props.onRender?.();
-			};
-
-			return () => {
-				channel.current?.port2.postMessage({ type: "cleanup" });
-				channel.current?.port2.close();
-			};
-		}
-
-		const unsubscribe = game.current?.subscribe((universe) =>
+		const unsubscribe = game.subscribe((universe) =>
 			renderCanvas(ctx.current, universe, props),
 		);
 
 		if (props.mode === "auto") {
-			game.current?.start();
+			game.start();
 		}
 
 		return () => {
-			unsubscribe?.();
-			game.current?.stop();
+			unsubscribe();
+			game.stop();
 		};
-	}, [game, normalizedProps]);
+	}, [canvas.current, game, props]);
 
-	const context = useContext(LifeGameContext);
+	const handleClick = (e: MouseEvent<HTMLCanvasElement>) => {
+		if (!canvas.current) return;
+		const { x: dx, y: dy } = getCanvasPoint(
+			e.nativeEvent,
+			canvas.current,
+			// TODO: 型
+			props.devicePixelRatio || 1,
+		);
+		const { x, y } = point2Cell(
+			dx,
+			dy,
+			props.columns,
+			props.rows,
+			canvas.current.width,
+			canvas.current.height,
+		);
+		props.onClick?.(x, y);
+	};
+
+	return <canvas ref={canvas} {...props.canvasProps} onClick={handleClick} />;
+}
+
+function LifeGameOffscreenCanvas(props: LifeGameCanvasProps2) {
+	const { canvas } = props;
+
+	const offscreen = useRef<OffscreenCanvas | null>(null);
+	const worker = useRef<Worker | null>(null);
+	const channel = useRef<MessageChannel | null>(null);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		if (!canvas.current) return;
+
+		worker.current = getWorker();
+		channel.current = new MessageChannel();
+		offscreen.current = canvas.current.transferControlToOffscreen();
+		if (!offscreen.current) return;
+		const port = channel.current.port1;
+		initCanvas(worker.current, offscreen.current, port);
+
+		return () => {
+			worker.current?.terminate();
+		};
+	}, []);
 
 	useEffect(() => {
-		if (!game.current) return;
-		context?.setValue(canvas.current?.id || "lifegame", game.current);
-	}, [context, game]);
+		if (!worker.current || !channel.current) return;
+		updateCanvasConfig(worker.current, props);
 
-	useEffect(() => {
-		game.current?.update(props);
-	}, [props, game.current?.update]);
+		// channel.current.port2.onmessage = (e) => {
+		// 	props.onRender?.();
+		// };
 
-	useImperativeHandle(ref, () => ({
-		start: () => game.current?.start(),
-		stop: () => game.current?.stop(),
-		next: () => game.current?.next(),
-		prev: () => game.current?.prev(),
-	}));
+		return () => {
+			channel.current?.port2.postMessage({ type: "cleanup" });
+			channel.current?.port2.close();
+		};
+	}, [props]);
 
-	return <canvas ref={canvas} {...props.canvasProps} />;
-});
+	const handleClick = (e: MouseEvent<HTMLCanvasElement>) => {
+		if (!canvas.current) return;
+		const { x: dx, y: dy } = getCanvasPoint(
+			e.nativeEvent,
+			canvas.current,
+			// TODO: 型
+			props.devicePixelRatio || 1,
+		);
+		const { x, y } = point2Cell(
+			dx,
+			dy,
+			props.columns,
+			props.rows,
+			canvas.current.width,
+			canvas.current.height,
+		);
+		props.onClick?.(x, y);
+	};
 
-export default LifeGameCanvas;
+	return <canvas ref={canvas} {...props.canvasProps} onClick={handleClick} />;
+}
+
+export const LifeGameCanvas = forwardRef(LifeGameCanvasComponent);

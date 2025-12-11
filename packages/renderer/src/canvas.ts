@@ -19,6 +19,7 @@ export function renderCanvas(
 			if (config.strokeColor) {
 				ctx.strokeStyle = config.strokeColor;
 			}
+			ctx.lineWidth = config.lineWidth ?? 1;
 
 			const { cellSize } = config;
 
@@ -28,5 +29,4 @@ export function renderCanvas(
 			ctx.strokeRect(...rectArgs);
 		}
 	}
-	config.onRender?.();
 }

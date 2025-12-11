@@ -1,5 +1,8 @@
 import { createLifeGame, type LifeGameCreateOptions } from "@nolix2/core";
-import { LifeGameProcessor, type LifeGameProcessorerOptions } from "@nolix2/process";
+import {
+	createLifeGameProcessor,
+	type LifeGameProcessorerOptions,
+} from "@nolix2/process";
 import { renderCanvas, type LifeGameRendererConfig } from "@nolix2/renderer";
 
 interface LifeGameConfig
@@ -37,7 +40,7 @@ self.onmessage = (e) => {
 	if (canvas && ctx && config) {
 		const { interval, ...rendererOptions } = config;
 		const generator = createLifeGame([config.columns, config.rows], rendererOptions);
-		const game = new LifeGameProcessor(generator, { interval });
+		const game = createLifeGameProcessor(generator, { interval });
 
 		game.update(config);
 		const unsubscribe = game.subscribe((universe) => {

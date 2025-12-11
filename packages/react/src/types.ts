@@ -1,26 +1,37 @@
-import type { LifeGameCreateOptions } from "@nolix2/core";
+import type { Cell, LifeGameCreateOptions } from "@nolix2/core";
 import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@nolix2/process";
 import type {
 	LifeGameCanvasRendererConfig,
-	LifeGameCanvasRendererOptions,
+	LifeGameRendererOptions,
 } from "@nolix2/renderer";
 import type { ComponentProps } from "react";
 
-interface LifeGameOptions
+export interface LifeGameProps
 	extends LifeGameCreateOptions,
 		LifeGameProcessorerOptions,
-		LifeGameCanvasRendererOptions {}
+		LifeGameRendererOptions {}
 
-export interface LifeGameProps extends LifeGameOptions {
+export interface LifeGameCanvasProps extends LifeGameProps {
 	canvasProps?: ComponentProps<"canvas"> | undefined;
 }
 
-export interface LifeGamePropsWithDefaults
-	extends LifeGameCreateOptions,
-		LifeGameProcessorerOptions,
-		LifeGameCanvasRendererConfig {
-	canvasProps?: ComponentProps<"canvas"> | undefined;
+export interface LifeGameDOMProps<E extends Element> extends LifeGameProps {
+	/**
+	 * @default undefined
+	 */
+	containerProps?: ComponentProps<"div"> | undefined;
+
+	/**
+	 * @default
+	 */
+	cellEl?: ((cell: Cell) => E) | undefined;
 }
+
+export interface LifeGameSVGProps extends LifeGameProps {
+	svgProps?: ComponentProps<"svg"> | undefined;
+}
+
+export type WithDefaults<T> = T & LifeGameCanvasRendererConfig;
 
 export interface LifeGameContextValue {
 	value: {

@@ -12,7 +12,7 @@
 [34mESM[39m Build start
 [34mCJS[39m Build start
 
-[90m[[90m1:37:45 AM[90m][39m [43m[30m WARN [39m[49m [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1m"import.meta" is not available with the "cjs" output format and will be empty[0m [empty-import-meta]
+[90m[[90m12:06:39 AM[90m][39m [43m[30m WARN [39m[49m [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1m"import.meta" is not available with the "cjs" output format and will be empty[0m [empty-import-meta]
 
     src/renderers/canvas/canvas-renderer.ts:46:44:
 [37m      46 │       const scriptURL = new URL("./worker.js", [32mimport.meta[37m.url);
@@ -23,33 +23,33 @@
 
 
 [32mESM[39m [1mdist/custom/index.mjs     [22m[32m334.00 B[39m
-[32mESM[39m [1mdist/index.mjs            [22m[32m109.00 B[39m
-[32mESM[39m [1mdist/svg/index.mjs        [22m[32m2.49 KB[39m
-[32mESM[39m [1mdist/webgl/index.mjs      [22m[32m1.79 KB[39m
 [32mESM[39m [1mdist/canvas/index.mjs     [22m[32m2.09 KB[39m
+[32mESM[39m [1mdist/index.mjs            [22m[32m109.00 B[39m
+[32mESM[39m [1mdist/webgl/index.mjs      [22m[32m1.79 KB[39m
+[32mESM[39m [1mdist/svg/index.mjs        [22m[32m2.49 KB[39m
 [32mESM[39m [1mdist/dom/index.mjs        [22m[32m2.54 KB[39m
 [32mESM[39m [1mdist/custom/index.mjs.map [22m[32m888.00 B[39m
-[32mESM[39m [1mdist/webgl/index.mjs.map  [22m[32m3.88 KB[39m
-[32mESM[39m [1mdist/svg/index.mjs.map    [22m[32m5.17 KB[39m
-[32mESM[39m [1mdist/dom/index.mjs.map    [22m[32m5.11 KB[39m
 [32mESM[39m [1mdist/canvas/index.mjs.map [22m[32m4.53 KB[39m
+[32mESM[39m [1mdist/webgl/index.mjs.map  [22m[32m3.88 KB[39m
 [32mESM[39m [1mdist/index.mjs.map        [22m[32m128.00 B[39m
-[32mESM[39m ⚡️ Build success in 20ms
-[32mCJS[39m [1mdist/custom/index.js     [22m[32m1.38 KB[39m
+[32mESM[39m [1mdist/dom/index.mjs.map    [22m[32m5.11 KB[39m
+[32mESM[39m [1mdist/svg/index.mjs.map    [22m[32m5.17 KB[39m
+[32mESM[39m ⚡️ Build success in 18ms
 [32mCJS[39m [1mdist/dom/index.js        [22m[32m3.58 KB[39m
-[32mCJS[39m [1mdist/svg/index.js        [22m[32m3.53 KB[39m
-[32mCJS[39m [1mdist/index.js            [22m[32m1000.00 B[39m
 [32mCJS[39m [1mdist/canvas/index.js     [22m[32m3.17 KB[39m
+[32mCJS[39m [1mdist/svg/index.js        [22m[32m3.53 KB[39m
+[32mCJS[39m [1mdist/custom/index.js     [22m[32m1.38 KB[39m
+[32mCJS[39m [1mdist/index.js            [22m[32m1000.00 B[39m
 [32mCJS[39m [1mdist/webgl/index.js      [22m[32m2.84 KB[39m
-[32mCJS[39m [1mdist/index.js.map        [22m[32m172.00 B[39m
+[32mCJS[39m [1mdist/dom/index.js.map    [22m[32m5.21 KB[39m
 [32mCJS[39m [1mdist/svg/index.js.map    [22m[32m5.27 KB[39m
-[32mCJS[39m [1mdist/webgl/index.js.map  [22m[32m4.00 KB[39m
 [32mCJS[39m [1mdist/custom/index.js.map [22m[32m1023.00 B[39m
 [32mCJS[39m [1mdist/canvas/index.js.map [22m[32m4.64 KB[39m
-[32mCJS[39m [1mdist/dom/index.js.map    [22m[32m5.21 KB[39m
-[32mCJS[39m ⚡️ Build success in 21ms
+[32mCJS[39m [1mdist/index.js.map        [22m[32m172.00 B[39m
+[32mCJS[39m [1mdist/webgl/index.js.map  [22m[32m4.00 KB[39m
+[32mCJS[39m ⚡️ Build success in 19ms
 DTS Build start
-DTS ⚡️ Build success in 1146ms
+DTS ⚡️ Build success in 1123ms
 DTS dist/index.d.mts        61.00 B
 DTS dist/canvas/index.d.mts 657.00 B
 DTS dist/custom/index.d.mts 372.00 B

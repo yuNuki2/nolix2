@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LifeGameContext } from "./context";
+import { LifeGameContext } from "../context";
 
 export function useLifeGame() {
 	const context = useContext(LifeGameContext);
