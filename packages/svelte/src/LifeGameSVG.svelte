@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { LifeGameProps } from "./types";
+import type { LifeGameProps } from "./types";
 
-  let props: LifeGameProps = $props();
-  props.aliveColor;
+const props: LifeGameProps = $props();
+props.aliveColor;
 
-  let canvas: HTMLCanvasElement;
+let canvas: HTMLCanvasElement;
 
-  $effect(() => {});
+$effect(() => {});
 </script>
 
 <canvas bind:this={canvas} />
