@@ -1,5 +1,5 @@
 import { Δ } from "./constants";
-import { binarize, generateRandom, isArray, isFunction, noDifference } from "./helper";
+import { binarize, generateRandom, isArray, isFunction, noDifference } from "./helpers";
 import type {
 	Cell,
 	LifeGame,

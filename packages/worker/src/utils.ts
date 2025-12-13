@@ -1,5 +1,5 @@
 import type { LifeGameCanvasRendererConfig } from "@noli2/renderer";
-import { pick } from "./helper";
+import { pick } from "./helpers";
 
 export function getWorker() {
 	const scriptURL = new URL("./worker.js", import.meta.url);

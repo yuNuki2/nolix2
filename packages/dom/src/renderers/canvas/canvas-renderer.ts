@@ -8,7 +8,7 @@ import {
 	type LifeGameRendererOptions,
 	type Renderer,
 } from "@noli2/renderer";
-import { isCanvasElement, resolveElement } from "../../helper";
+import { isCanvasElement, resolveElement } from "../../helpers";
 
 export class CanvasRenderer implements Renderer {
 	#options: LifeGameCanvasRendererConfig;

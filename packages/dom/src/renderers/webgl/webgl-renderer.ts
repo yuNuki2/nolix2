@@ -6,7 +6,7 @@ import {
 	type LifeGameRendererOptions,
 	type Renderer,
 } from "@noli2/renderer";
-import { isCanvasElement, resolveElement } from "../../helper";
+import { isCanvasElement, resolveElement } from "../../helpers";
 
 export class WebGLRenderer implements Renderer {
 	private readonly _canvas: HTMLCanvasElement;

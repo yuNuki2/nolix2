@@ -6,7 +6,7 @@ import {
 	type LifeGameRendererOptions,
 	type Renderer,
 } from "@noli2/renderer";
-import { isCanvasElement, isHTMLElement, resolveElement } from "../../helper";
+import { isCanvasElement, isHTMLElement, resolveElement } from "../../helpers";
 
 export class DOMRenderer implements Renderer {
 	private readonly container: HTMLElement;

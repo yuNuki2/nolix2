@@ -1,0 +1,34 @@
+{
+	"name": "@noli2/patterns",
+	"version": "1.0.0",
+	"description": "",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"./dist/**/*.{js,mjs}",
+		"./dist/**/*.d.ts"
+	],
+	"scripts": {
+		"build": "tsup",
+		"test": "vitest"
+	},
+	"homepage": "https://example.com",
+	"repository": {
+		"type": "git",
+		"url": "https://example.com",
+		"directory": "packages/noli2"
+	},
+	"author": {
+		"name": "yuNuki",
+		"email": "aaa@yunukish.jp",
+		"url": "https://example.com"
+	},
+	"bugs": {
+		"url": "https://example.com"
+	},
+	"keywords": [],
+	"dependencies": {},
+	"sideEffects": false
+}

@@ -6,7 +6,7 @@ import {
 	type LifeGameRendererOptions,
 	type Renderer,
 } from "@noli2/renderer";
-import { isSVGElement, resolveElement } from "../../helper";
+import { isSVGElement, resolveElement } from "../../helpers";
 
 export class SVGRenderer implements Renderer {
 	private readonly _svg: SVGSVGElement;

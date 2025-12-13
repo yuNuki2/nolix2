@@ -1,5 +1,5 @@
 import type { Cell, LifeGame, Size } from "@noli2/core";
-import { normalizeLifeGameProcessorOptions } from "./helper";
+import { normalizeLifeGameProcessorOptions } from "./helpers";
 import type { LifeGameProcessor, LifeGameProcessorerOptions } from "./types";
 
 export function createLifeGameProcessor(
@@ -7,7 +7,7 @@ export function createLifeGameProcessor(
 	options: LifeGameProcessorerOptions = {},
 ): LifeGameProcessor {
 	let config = normalizeLifeGameProcessorOptions(options);
-	let cells: Cell[][] = [];
+	let cells: Cell[][] = lifegame.cells;
 	let isProcessing: boolean = false;
 	let lastTimestamp: number | null = null;
 	let animationFrame: number | null = null;

@@ -8,6 +8,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
+		"@noli2/patterns": "workspace: *",
 		"@noli2/react": "workspace: *",
 		"next": "16.0.5",
 		"react": "19.2.0",

@@ -6,7 +6,7 @@ export type {
 	LifeGameProcessorOptionsWithDefaults,
 } from "./types";
 
-export { normalizeLifeGameProcessorOptions } from "./helper";
+export { normalizeLifeGameProcessorOptions } from "./helpers";
 export { createLifeGameProcessor } from "./processor";
 
 export default LifeGameProcessor;
