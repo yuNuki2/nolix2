@@ -7,11 +7,10 @@ export function computeGridSize(
 		rows?: number | undefined;
 	} = {},
 ): GridSize {
-	// const width = el instanceof HTMLCanvasElement ? el.width : el.clientWidth;
-	// const height = el instanceof HTMLCanvasElement ? el.height : el.clientHeight;
-	const rect = el.getBoundingClientRect();
-
-	const { width, height } = rect;
+	const width =
+		el instanceof HTMLCanvasElement ? el.width : el.getBoundingClientRect().width;
+	const height =
+		el instanceof HTMLCanvasElement ? el.height : el.getBoundingClientRect().height;
 
 	let cellSize = 0;
 	let columns = size.columns;

@@ -1,4 +1,4 @@
-import type { Cell, LifeGame } from "@nolix2/core";
+import type { Cell, LifeGame, Size } from "@nolix2/core";
 import { normalizeLifeGameProcessorOptions } from "./helper";
 import type { LifeGameProcessor, LifeGameProcessorerOptions } from "./types";
 
@@ -25,18 +25,24 @@ export function createLifeGameProcessor(
 		return cells;
 	}
 
+	function notify() {
+		listeners.forEach((listener) => void listener(cells));
+	}
+
 	function next(timestamp?: DOMHighResTimeStamp) {
 		const result = lifegame.next();
 		cells = result.value.cells;
-		for (const listener of listeners) {
-			listener(cells);
-		}
-		config.onNext?.(result.value);
+		notify();
+		config.onNext?.({ ...result.value, timestamp });
 		return result;
 	}
 
 	function prev() {
-		config.onPrev?.();
+		const result = lifegame.prev();
+		cells = result.value.cells;
+		notify();
+		config.onPrev?.(result.value);
+		return result;
 	}
 
 	function start() {
@@ -54,8 +60,15 @@ export function createLifeGameProcessor(
 		config.onStop?.();
 	}
 
-	function update(value: LifeGameProcessorerOptions) {
-		config = normalizeLifeGameProcessorOptions(config, value);
+	function setCell(x: number, y: number, cell: Cell) {
+		cells = lifegame.setCell(x, y, cell);
+		notify();
+	}
+
+	function update(value: LifeGameProcessorerOptions & { size?: Size }) {
+		const { size, ...rest } = value;
+		if (size) lifegame.update(size);
+		config = normalizeLifeGameProcessorOptions(config, rest);
 	}
 
 	const loop = (timestamp: DOMHighResTimeStamp) => {
@@ -79,11 +92,12 @@ export function createLifeGameProcessor(
 		prev,
 		start,
 		stop,
+		setCell,
 		update,
 	};
 }
 
-export default class {
+export default class LifeGameProcessorImpl {
 	private constructor() {}
 	static create(...args: Parameters<typeof createLifeGameProcessor>) {
 		return createLifeGameProcessor(...args);

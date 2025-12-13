@@ -4,6 +4,6 @@ export const DEFAULT_RENDERER_OPTIONS = {
 	strokeColor: "#c8ebeb",
 	// devicePixelRatio: 1,
 	mode: "auto",
-	height: 0,
-	width: 0,
+	// height: 0,
+	// width: 0,
 } as const;

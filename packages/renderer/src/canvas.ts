@@ -6,7 +6,7 @@ export function renderCanvas(
 	config: LifeGameRendererConfig,
 ) {
 	if (!ctx) return;
-	ctx.clearRect(0, 0, config.width, config.height);
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	for (let y = 0; y < config.rows; y++) {
 		for (let x = 0; x < config.columns; x++) {
 			const cell = universe[y]?.[x];

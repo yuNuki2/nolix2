@@ -33,10 +33,20 @@ export interface LifeGameRendererOptions {
 	devicePixelRatio?: number | undefined;
 
 	/**
+	 * @default false
+	 */
+	editable?: boolean | undefined;
+
+	/**
 	 * @default window.innerHeight
 	 * @description
 	 */
 	height?: number | undefined;
+
+	/**
+	 * @default undefined
+	 */
+	hoverColor?: string | undefined;
 
 	/**
 	 * @default 1

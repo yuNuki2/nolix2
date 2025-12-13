@@ -7,6 +7,12 @@ type StrictRequired<T> = {
 
 type SomeStrictRequired<T, K extends keyof T> = Omit<T, K> & StrictRequired<Pick<T, K>>;
 
+interface NextEvent extends LifeGameGeneratorResultValue {
+	timestamp?: DOMHighResTimeStamp | undefined;
+}
+
+interface PreviousEvent extends LifeGameGeneratorResultValue {}
+
 export interface LifeGameProcessorerOptions {
 	/**
 	 * @default 200
@@ -16,12 +22,12 @@ export interface LifeGameProcessorerOptions {
 	/**
 	 * @default undefined
 	 */
-	onNext?: ((value: LifeGameGeneratorResultValue) => void) | undefined;
+	onNext?: ((e: NextEvent) => void) | undefined;
 
 	/**
 	 * @default undefined
 	 */
-	onPrev?: (() => void) | undefined;
+	onPrev?: ((e: PreviousEvent) => void) | undefined;
 
 	/**
 	 * @default undefined
@@ -47,5 +53,6 @@ export interface LifeGameProcessor {
 	prev: () => void;
 	start: () => void;
 	stop: () => void;
+	setCell: (x: number, y: number, cell: Cell) => void;
 	update: (value: LifeGameProcessorerOptions) => void;
 }

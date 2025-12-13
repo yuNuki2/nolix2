@@ -16,7 +16,7 @@ export interface LifeGameCreateOptions {
 
 	/**
 	 * @default 0.4
-	 * @description
+	 * This should be between 0 and 1
 	 */
 	density?: number | undefined;
 
@@ -33,8 +33,15 @@ export interface LifeGameCreateOptions {
 		| undefined;
 
 	/**
+	 * @default 0
+	 * If this is less than 1, calling the prev method will have no effect.
+	 */
+	historyLimit?: number | undefined;
+
+	/**
 	 * @default undefined
-	 * @description
+	 * @example
+	 * "hello"
 	 */
 	seed?: string | undefined;
 
@@ -54,14 +61,18 @@ export interface LifeGameGeneratorResult {
 	value: LifeGameGeneratorResultValue;
 }
 
-export type LifeGameGeneratorResultValue = {
+export interface LifeGameGeneratorResultValue {
 	cells: Cell[][];
 	generation: number;
-};
+}
 
 export interface LifeGame {
 	readonly cells: Cell[][];
 	readonly generation: number;
+	readonly history: Cell[][][];
 	next: () => LifeGameGeneratorResult;
-	toggle: (x: number, y: number) => void;
+	prev: () => LifeGameGeneratorResult;
+	setCell: (x: number, y: number, cell: Cell) => Cell[][];
+	destroy: () => void;
+	update: (size: Size) => void;
 }

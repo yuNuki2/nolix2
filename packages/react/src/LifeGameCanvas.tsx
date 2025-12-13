@@ -6,13 +6,18 @@ import {
 	useEffect,
 	useImperativeHandle,
 	useRef,
+	type ComponentProps,
 	type ForwardedRef,
 	type MouseEvent,
 	type RefObject,
 } from "react";
 import { useLifeGameConfig } from "./hooks/useLifeGameConfig";
 import { useSafeLayoutEffect } from "./hooks/useSafeLayoutEffect";
-import type { LifeGameCanvasProps, WithDefaults } from "./types";
+import type { LifeGameProps, WithDefaults } from "./types";
+
+export interface LifeGameCanvasProps extends LifeGameProps {
+	canvasProps?: ComponentProps<"canvas"> | undefined;
+}
 
 interface LifeGameCanvasProps2 extends WithDefaults<LifeGameCanvasProps> {
 	game: LifeGameProcessor;

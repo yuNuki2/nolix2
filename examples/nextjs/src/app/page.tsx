@@ -2,7 +2,7 @@
 
 import { LifeGameDOM, useLifeGame } from "@nolix2/react";
 import { useEffect, useReducer, useRef } from "react";
-import { LifeGameProcessor } from "../../../../packages/process/dist";
+import type { LifeGameProcessor } from "../../../../packages/process/dist";
 
 export default function Home() {
 	const { lifegame } = useLifeGame();
@@ -18,13 +18,22 @@ export default function Home() {
 	return (
 		<div className="grid">
 			<LifeGameDOM
+				id="lifegame234"
 				ref={ref}
-				// onNext={(e) => console.log("next", e.cells)}
+				done={false}
+				onNext={(e) => console.log("next", e.cells)}
 				onStart={() => console.log("start")}
 				onStop={() => console.log("ちんぽ")}
 				strategy="diff"
 				// useWorker
-				lineWidth={2}
+				lineWidth={1}
+				hoverColor="#EAC8EB"
+				density={0}
+				// cellEl={(props) => {
+				// 	// console.log(props.key);
+				// 	const style = getStyle(props);
+				// 	return <span style={style}></span>;
+				// }}
 				// width={300}
 				// height={200}
 				// style={{ position: "absolute", inset: 0, zIndex: -1, opacity: 0.25 }}

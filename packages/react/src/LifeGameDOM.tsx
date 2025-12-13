@@ -1,4 +1,4 @@
-import type { Cell } from "@nolix2/core";
+import type { Cell as CellType } from "@nolix2/core";
 import type LifeGameProcessor from "@nolix2/process";
 import {
 	forwardRef,
@@ -6,24 +6,50 @@ import {
 	useEffect,
 	useImperativeHandle,
 	useRef,
+	useState,
 	useSyncExternalStore,
-	type CSSProperties,
+	type ComponentProps,
 	type ForwardedRef,
 } from "react";
+import { Cell, type CellProps } from "./Cell";
+import { pick } from "./helpers";
 import { useLifeGameConfig } from "./hooks/useLifeGameConfig";
-import type { LifeGameDOMProps } from "./types";
+import { useSafeLayoutEffect } from "./hooks/useSafeLayoutEffect";
+import type { LifeGameProps } from "./types";
 
-const a: Cell[][] = [];
+export interface LifeGameDOMProps extends LifeGameProps {
+	/**
+	 * @default undefined
+	 */
+	containerProps?: ComponentProps<"div"> | undefined;
 
-function LifeGameDOMComponent<E extends Element>(
-	props: LifeGameDOMProps<E>,
+	/**
+	 * @default Cell component
+	 */
+	cellEl?: ((props: CellProps) => JSX.Element) | undefined;
+}
+
+function LifeGameDOMComponent(
+	props: LifeGameDOMProps,
 	ref: ForwardedRef<LifeGameProcessor>,
 ) {
 	const el = useRef<HTMLDivElement>(null);
 
+	const [hoveredIndex, setHoveredIndex] = useState<[number, number] | null>(null);
+
+	useSafeLayoutEffect(() => {
+		if (!el.current) return;
+
+		const width = props.width || window.innerWidth;
+		const height = props.height || window.innerHeight;
+
+		el.current.style.width = `${width}px`;
+		el.current.style.height = `${height}px`;
+	}, [props]);
+
 	const { normalizedProps, game } = useLifeGameConfig(el, props);
 
-	const universe = useSyncExternalStore(game.subscribe, game.get, () => a);
+	const universe = useSyncExternalStore(game.subscribe, game.get, game.get);
 
 	useEffect(() => {
 		if (normalizedProps.mode === "auto") {
@@ -37,40 +63,59 @@ function LifeGameDOMComponent<E extends Element>(
 
 	useImperativeHandle(ref, () => game);
 
-	const getStyle = useCallback(
-		(cell: Cell): CSSProperties => {
-			const baseStyle = {
-				width: normalizedProps.cellSize,
-				height: normalizedProps.cellSize,
-				background: cell ? normalizedProps.aliveColor : normalizedProps.deadColor,
-			};
-			return normalizedProps.strokeColor
-				? {
-						...baseStyle,
-						borderWidth: normalizedProps.lineWidth,
-						borderStyle: "solid",
-						borderColor: normalizedProps.strokeColor,
-					}
-				: baseStyle;
+	const handleClick = useCallback(
+		(x: number, y: number, cell: CellType) => {
+			normalizedProps.onClick?.(x, y);
+			if (normalizedProps.editable) {
+				game.setCell(x, y, cell);
+			}
 		},
-		[normalizedProps],
+		[game.setCell, normalizedProps.editable, normalizedProps.onClick],
+	);
+
+	const renderCell = useCallback(
+		(cell: CellType, index: number, rowIndex: number) => {
+			const cellProps = pick(normalizedProps, [
+				"cellSize",
+				"aliveColor",
+				"deadColor",
+				"strokeColor",
+				"hoverColor",
+				"lineWidth",
+			]);
+			const CellEl = normalizedProps.cellEl ?? Cell;
+			return (
+				<CellEl
+					id={`${normalizedProps.id}-cell-${rowIndex}-${index}`}
+					key={`${rowIndex}-${index}`}
+					cell={cell}
+					isHover={rowIndex === hoveredIndex?.[0] && index === hoveredIndex?.[1]}
+					onMouseEnter={() => setHoveredIndex([rowIndex, index])}
+					onClick={() => handleClick(index, rowIndex, (cell ^ 1) as CellType)}
+					{...cellProps}
+				/>
+			);
+		},
+		[handleClick, hoveredIndex, normalizedProps],
 	);
 
 	return (
 		<div
+			id={normalizedProps.id}
 			ref={el}
 			style={{ width: normalizedProps.width, height: normalizedProps.height }}
 			{...normalizedProps.containerProps}
 		>
 			{universe.map((rows, i) => (
 				<div
-					style={{ width: "100%" }}
-					id={i.toString()}
-					key={`${rows[i]?.toString()}-${Math.random()}`}
+					style={{ display: "flex", width: "100%" }}
+					id={`${normalizedProps.id}-row-${i}`}
+					key={`row-${
+						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+						i
+					}`}
 				>
-					{rows.map((cell) => (
-						<div key={Math.random()} style={getStyle(cell)} />
-					))}
+					{rows.map((cell, j) => renderCell(cell, j, i))}
 				</div>
 			))}
 		</div>

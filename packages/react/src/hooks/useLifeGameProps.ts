@@ -22,11 +22,12 @@ export function useLifeGameProps<P extends LifeGameProps>(
 		if (!ref.current) return;
 		const config = computeGridSize(ref.current, normalizedProps);
 		setNormalizedPropsWithSize({
-			...normalizedProps,
-			...config,
+			id: "lifegame",
 			width: window.innerWidth,
 			height: window.innerHeight,
 			devicePixelRatio: window.devicePixelRatio,
+			...normalizedProps,
+			...config,
 		});
 	}, [normalizedProps, ref]);
 
