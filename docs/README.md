@@ -44,7 +44,44 @@ bbb
 ### カスタムレンダラー
 いちいちcoreをインストールしなくていいように、ヘルパー関数を用意している。
 
+## Dependencies
+```mermaid
+graph BT
+  core["@noli2/core"] 
+  processor["@noli2/processor"]
+  renderer["@noli2/renderer"] 
+  worker["@noli2/worker"] 
 
+  subgraph Renderers
+    dom["@noli2/dom"]
+    lit["@noli2/lit"]
+    react["@noli2/react"]
+    svelte["@noli2/svelte"]
+  end
+
+  patterns["@noli2/patterns"]
+
+  dom --> core
+  dom --> processor
+  dom --> renderer
+  dom --> worker
+  lit --> core
+  lit --> processor
+  lit --> renderer
+  lit --> worker
+  processor --> core
+  react --> core
+  react --> processor
+  react --> renderer
+  react --> worker
+  svelte --> core
+  svelte --> processor
+  svelte --> renderer
+  svelte --> worker
+  worker --> core
+  worker --> processor
+  worker --> renderer
+```
 
 ## Naming
 "NO GAME NO LIFE" -> No LifeGame No Life -> NoLiNoli -> noli2
