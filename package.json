@@ -1,5 +1,5 @@
 {
-	"name": "nolix2",
+	"name": "noli2",
 	"private": true,
 	"license": "MIT",
 	"scripts": {
@@ -13,8 +13,8 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.3.8",
 		"@changesets/cli": "^2.29.8",
-		"@nolix2/dom": "workspace:*",
-		"@nolix2/react": "workspace:*",
+		"@noli2/dom": "workspace:*",
+		"@noli2/react": "workspace:*",
 		"@playwright/test": "^1.57.0",
 		"@types/node": "^20",
 		"lefthook": "2.0.4",

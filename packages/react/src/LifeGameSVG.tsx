@@ -1,4 +1,4 @@
-import type LifeGameProcessor from "@nolix2/process";
+import type LifeGameProcessor from "@noli2/process";
 import {
 	forwardRef,
 	useEffect,

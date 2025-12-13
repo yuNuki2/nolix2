@@ -48,5 +48,5 @@ bbb
 
 
 ## Naming
-"NO GAME NO LIFE" -> No LifeGame No Life -> NoLiNoli -> nolix2
+"NO GAME NO LIFE" -> No LifeGame No Life -> NoLiNoli -> noli2
 好きに呼べばいいですが、開発者は「ノラノラ」と呼びます。

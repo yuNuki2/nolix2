@@ -14,10 +14,10 @@ importers:
       '@changesets/cli':
         specifier: ^2.29.8
         version: 2.29.8(@types/node@20.19.25)
-      '@nolix2/dom':
+      '@noli2/dom':
         specifier: workspace:*
         version: link:packages/dom
-      '@nolix2/react':
+      '@noli2/react':
         specifier: workspace:*
         version: link:packages/react
       '@playwright/test':
@@ -44,7 +44,7 @@ importers:
 
   examples/nextjs:
     dependencies:
-      '@nolix2/react':
+      '@noli2/react':
         specifier: 'workspace: *'
         version: link:../../packages/react
       next:
@@ -88,31 +88,31 @@ importers:
 
   packages/dom:
     dependencies:
-      '@nolix2/core':
+      '@noli2/core':
         specifier: workspace:*
         version: link:../core
-      '@nolix2/renderer':
+      '@noli2/renderer':
         specifier: workspace:*
         version: link:../renderer
 
   packages/process:
     dependencies:
-      '@nolix2/core':
+      '@noli2/core':
         specifier: workspace:*
         version: link:../core
 
   packages/react:
     dependencies:
-      '@nolix2/core':
+      '@noli2/core':
         specifier: workspace:*
         version: link:../core
-      '@nolix2/process':
+      '@noli2/process':
         specifier: workspace:*
         version: link:../process
-      '@nolix2/renderer':
+      '@noli2/renderer':
         specifier: workspace:*
         version: link:../renderer
-      '@nolix2/worker':
+      '@noli2/worker':
         specifier: workspace:*
         version: link:../worker
     devDependencies:
@@ -133,13 +133,13 @@ importers:
 
   packages/worker:
     dependencies:
-      '@nolix2/core':
+      '@noli2/core':
         specifier: workspace:*
         version: link:../core
-      '@nolix2/process':
+      '@noli2/process':
         specifier: workspace:*
         version: link:../process
-      '@nolix2/renderer':
+      '@noli2/renderer':
         specifier: workspace:*
         version: link:../renderer
 

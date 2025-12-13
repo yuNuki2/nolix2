@@ -1,11 +1,11 @@
-import type { Cell } from "@nolix2/core";
+import type { Cell } from "@noli2/core";
 import {
 	computeGridSize,
 	normalizeLifeGameRendererOptions,
 	type LifeGameRendererConfig,
 	type LifeGameRendererOptions,
 	type Renderer,
-} from "@nolix2/renderer";
+} from "@noli2/renderer";
 import { isCanvasElement, isHTMLElement, resolveElement } from "../../helper";
 
 export class DOMRenderer implements Renderer {

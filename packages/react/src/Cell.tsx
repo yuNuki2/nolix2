@@ -1,4 +1,4 @@
-import type { Cell as CellType } from "@nolix2/core";
+import type { Cell as CellType } from "@noli2/core";
 import { getStyle } from "./helpers";
 import type { LifeGameCanvasProps } from "./LifeGameCanvas";
 import type { WithDefaults } from "./types";

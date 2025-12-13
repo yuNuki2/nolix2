@@ -1,5 +1,5 @@
 {
-	"name": "@nolix2/react",
+	"name": "@noli2/react",
 	"version": "1.0.0",
 	"description": "",
 	"license": "MIT",
@@ -17,7 +17,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://example.com",
-		"directory": "packages/nolix2"
+		"directory": "packages/noli2"
 	},
 	"author": {
 		"name": "yuNuki",
@@ -29,10 +29,10 @@
 	},
 	"keywords": [],
 	"dependencies": {
-		"@nolix2/core": "workspace:*",
-		"@nolix2/process": "workspace:*",
-		"@nolix2/renderer": "workspace:*",
-		"@nolix2/worker": "workspace:*"
+		"@noli2/core": "workspace:*",
+		"@noli2/process": "workspace:*",
+		"@noli2/renderer": "workspace:*",
+		"@noli2/worker": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.43",

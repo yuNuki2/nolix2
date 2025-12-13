@@ -1,6 +1,6 @@
 "use client";
 
-import { LifeGameDOM, useLifeGame } from "@nolix2/react";
+import { LifeGameDOM, useLifeGame } from "@noli2/react";
 import { useEffect, useReducer, useRef } from "react";
 import type { LifeGameProcessor } from "../../../../packages/process/dist";
 

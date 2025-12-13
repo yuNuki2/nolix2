@@ -1,6 +1,6 @@
 "use client";
 
-import { useLifeGame } from "@nolix2/react";
+import { useLifeGame } from "@noli2/react";
 
 export default function A() {
 	const a = useLifeGame();

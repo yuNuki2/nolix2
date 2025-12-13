@@ -3,8 +3,8 @@ import {
 	type LifeGame,
 	type LifeGameCreateOptions,
 	type Size,
-} from "@nolix2/core";
-import type { Renderer } from "@nolix2/renderer";
+} from "@noli2/core";
+import type { Renderer } from "@noli2/renderer";
 
 // biome-ignore lint/suspicious/noExplicitAny: allow any
 export function createCustomRenderer<F extends new (...args: any) => any>(

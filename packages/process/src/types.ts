@@ -1,4 +1,4 @@
-import type { Cell, LifeGameGeneratorResultValue } from "@nolix2/core";
+import type { Cell, LifeGameGeneratorResultValue } from "@noli2/core";
 import type { DEFAULT_PROCESSOR_OPTIONS } from "./constants";
 
 type StrictRequired<T> = {

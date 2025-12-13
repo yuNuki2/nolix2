@@ -1,6 +1,6 @@
-import type { LifeGameProcessor } from "@nolix2/process";
-import { getCanvasPoint, point2Cell, renderCanvas } from "@nolix2/renderer";
-import { getWorker, initCanvas, updateCanvasConfig } from "@nolix2/worker";
+import type { LifeGameProcessor } from "@noli2/process";
+import { getCanvasPoint, point2Cell, renderCanvas } from "@noli2/renderer";
+import { getWorker, initCanvas, updateCanvasConfig } from "@noli2/worker";
 import {
 	forwardRef,
 	useEffect,

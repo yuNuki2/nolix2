@@ -1,4 +1,4 @@
-import { LifeGameProvider } from "@nolix2/react";
+import { LifeGameProvider } from "@noli2/react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import type { ReactNode } from "react";

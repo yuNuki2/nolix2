@@ -1,4 +1,4 @@
-import { computeGridSize, normalizeLifeGameRendererOptions } from "@nolix2/renderer";
+import { computeGridSize, normalizeLifeGameRendererOptions } from "@noli2/renderer";
 import { useMemo, useState, type RefObject } from "react";
 import type { LifeGameProps, WithDefaults } from "../types";
 import { useSafeLayoutEffect } from "./useSafeLayoutEffect";

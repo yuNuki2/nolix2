@@ -1,4 +1,4 @@
-import type { Cell, LifeGame, Size } from "@nolix2/core";
+import type { Cell, LifeGame, Size } from "@noli2/core";
 import { normalizeLifeGameProcessorOptions } from "./helper";
 import type { LifeGameProcessor, LifeGameProcessorerOptions } from "./types";
 

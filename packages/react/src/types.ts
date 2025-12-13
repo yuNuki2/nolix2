@@ -1,9 +1,9 @@
-import type { LifeGameCreateOptions } from "@nolix2/core";
-import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@nolix2/process";
+import type { LifeGameCreateOptions } from "@noli2/core";
+import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@noli2/process";
 import type {
 	LifeGameCanvasRendererConfig,
 	LifeGameRendererOptions,
-} from "@nolix2/renderer";
+} from "@noli2/renderer";
 
 export interface LifeGameProps
 	extends LifeGameCreateOptions,

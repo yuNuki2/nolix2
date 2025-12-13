@@ -1,4 +1,4 @@
-import type { LifeGameCanvasRendererConfig } from "@nolix2/renderer";
+import type { LifeGameCanvasRendererConfig } from "@noli2/renderer";
 import { pick } from "./helper";
 
 export function getWorker() {

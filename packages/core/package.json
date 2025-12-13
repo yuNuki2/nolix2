@@ -1,5 +1,5 @@
 {
-	"name": "@nolix2/core",
+	"name": "@noli2/core",
 	"version": "1.0.0",
 	"description": "",
 	"license": "MIT",
@@ -18,7 +18,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://example.com",
-		"directory": "packages/nolix2"
+		"directory": "packages/noli2"
 	},
 	"author": {
 		"name": "yuNuki",

@@ -8,7 +8,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
-		"@nolix2/react": "workspace: *",
+		"@noli2/react": "workspace: *",
 		"next": "16.0.5",
 		"react": "19.2.0",
 		"react-dom": "19.2.0"
