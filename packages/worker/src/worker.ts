@@ -1,5 +1,8 @@
 import { createLifeGame, type LifeGameCreateOptions } from "@noli2/core";
-import { createLifeGameProcessor, type LifeGameProcessorerOptions } from "@noli2/process";
+import {
+	createLifeGameProcessor,
+	type LifeGameProcessorerOptions,
+} from "@noli2/processor";
 import { renderCanvas, type LifeGameRendererConfig } from "@noli2/renderer";
 
 interface LifeGameConfig

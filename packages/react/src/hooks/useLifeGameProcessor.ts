@@ -1,5 +1,5 @@
 import { createLifeGame } from "@noli2/core";
-import { createLifeGameProcessor } from "@noli2/process";
+import { createLifeGameProcessor } from "@noli2/processor";
 import { useState } from "react";
 import type { LifeGameProps, WithDefaults } from "../types";
 

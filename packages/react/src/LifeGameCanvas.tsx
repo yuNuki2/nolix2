@@ -1,4 +1,4 @@
-import type { LifeGameProcessor } from "@noli2/process";
+import type { LifeGameProcessor } from "@noli2/processor";
 import { getCanvasPoint, point2Cell, renderCanvas } from "@noli2/renderer";
 import { getWorker, initCanvas, updateCanvasConfig } from "@noli2/worker";
 import {

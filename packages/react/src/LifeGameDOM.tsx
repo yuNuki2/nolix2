@@ -1,5 +1,5 @@
 import type { Cell as CellType } from "@noli2/core";
-import type LifeGameProcessor from "@noli2/process";
+import type LifeGameProcessor from "@noli2/processor";
 import {
 	forwardRef,
 	useCallback,

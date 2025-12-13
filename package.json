@@ -3,7 +3,7 @@
 	"private": true,
 	"license": "MIT",
 	"scripts": {
-		"dev": "pnpm --filter ./examples/nextjs dev",
+		"dev": "pnpm --filter ./apps/examples/nextjs dev",
 		"build": "turbo build",
 		"build:watch": "turbo watch",
 		"check": "pnpm exec biome check --write",

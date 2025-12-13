@@ -1,15 +1,14 @@
 "use client";
 
-import { LifeGameDOM, useLifeGame } from "@noli2/react";
+import { LifeGameDOM, type LifeGameHandle, useLifeGame } from "@noli2/react";
 import { useEffect, useReducer, useRef } from "react";
-import type { LifeGameProcessor } from "../../../../packages/process/dist";
 
 export default function Home() {
 	const { lifegame } = useLifeGame();
 
 	const [a, setA] = useReducer((prev) => !prev, false);
 
-	const ref = useRef<LifeGameProcessor>(null);
+	const ref = useRef<LifeGameHandle>(null);
 
 	useEffect(() => {
 		console.log(window.devicePixelRatio);

@@ -31,7 +31,7 @@
 	"keywords": [],
 	"dependencies": {
 		"@noli2/core": "workspace:*",
-		"@noli2/process": "workspace:*",
+		"@noli2/processor": "workspace:*",
 		"@noli2/renderer": "workspace:*"
 	},
 	"sideEffects": false

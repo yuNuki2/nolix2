@@ -1,6 +1,6 @@
 import LifeGameProvider from "./LifeGameProvider";
 
-export type { LifeGameProps } from "./types";
+export type { LifeGameHandle, LifeGameProps } from "./types";
 
 export { Cell } from "./Cell";
 export { getStyle } from "./helpers";

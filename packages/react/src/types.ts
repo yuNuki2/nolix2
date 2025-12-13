@@ -1,5 +1,5 @@
 import type { LifeGameCreateOptions } from "@noli2/core";
-import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@noli2/process";
+import type { LifeGameProcessor, LifeGameProcessorerOptions } from "@noli2/processor";
 import type {
 	LifeGameCanvasRendererConfig,
 	LifeGameRendererOptions,
@@ -15,6 +15,8 @@ export interface LifeGameProps
 	 */
 	id?: string;
 }
+
+export type LifeGameHandle = LifeGameProcessor;
 
 export type WithDefaults<T> = T & LifeGameCanvasRendererConfig;
 
