@@ -6,7 +6,7 @@ export type Size =
 
 export type Strategy = "full" | "diff";
 
-export interface LifeGameCreateOptions {
+export interface LifeGameCoreOptions {
 	/**
 	 * @example
 	 * glider is [[1,3],[2,3],[3,3],[3,2],[2,1]]

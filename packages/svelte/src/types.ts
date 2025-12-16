@@ -1,9 +1,9 @@
-import type { LifeGameCreateOptions } from "@noli2/core";
+import type { LifeGameCoreOptions } from "@noli2/core";
 import type { LifeGameProcessorerOptions } from "@noli2/processor";
-import type { LifeGameRendererOptions } from "../../renderer/dist";
+import type { LifeGameRendererOptions } from "@noli2/renderer";
 
 export interface LifeGameProps
-	extends LifeGameCreateOptions,
+	extends LifeGameCoreOptions,
 		LifeGameProcessorerOptions,
 		LifeGameRendererOptions {
 	id?: string;

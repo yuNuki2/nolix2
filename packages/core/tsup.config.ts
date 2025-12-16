@@ -7,7 +7,11 @@ export default defineConfig({
 	outDir: "dist",
 	format: ["esm", "cjs", "iife"],
 	globalName: "LifeGame",
-	dts: true,
+	dts: {
+		compilerOptions: {
+			composite: false,
+		},
+	},
 	splitting: false,
 	// minify: true,
 	sourcemap: true,

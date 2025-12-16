@@ -1,11 +1,15 @@
 {
 	"references": [
-		{ "path": "./examples/nextjs" },
+		{ "path": "./apps/examples/nextjs" },
 		{ "path": "./packages/core" },
 		{ "path": "./packages/dom" },
-		{ "path": "./packages/process" },
+		{ "path": "./packages/lit" },
+		{ "path": "./packages/patterns" },
+		{ "path": "./packages/processor" },
 		{ "path": "./packages/react" },
-		{ "path": "./packages/renderer" }
+		{ "path": "./packages/renderer" },
+		{ "path": "./packages/svelte" },
+		{ "path": "./packages/worker" }
 	],
 	"files": []
 }

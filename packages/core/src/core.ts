@@ -3,15 +3,12 @@ import { binarize, generateRandom, isArray, isFunction, noDifference } from "./h
 import type {
 	Cell,
 	LifeGame,
-	LifeGameCreateOptions,
+	LifeGameCoreOptions,
 	LifeGameGeneratorResult,
 	Size,
 } from "./types";
 
-export function createLifeGame(
-	size: Size,
-	options: LifeGameCreateOptions = {},
-): LifeGame {
+export function createLifeGame(size: Size, options: LifeGameCoreOptions = {}): LifeGame {
 	let [columns, rows] = isArray(size) ? size : [size.columns, size.rows];
 	const {
 		density = 0.4,

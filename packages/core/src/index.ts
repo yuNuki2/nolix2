@@ -3,7 +3,7 @@ import LifeGame from "./core";
 export type {
 	Cell,
 	LifeGame,
-	LifeGameCreateOptions,
+	LifeGameCoreOptions,
 	LifeGameGeneratorResult,
 	LifeGameGeneratorResultValue,
 	Size,

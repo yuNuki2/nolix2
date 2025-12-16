@@ -1,7 +1,9 @@
 import type { DEFAULT_RENDERER_OPTIONS } from "./constants";
 
+type Simplify<T> = { [K in keyof T]: T[K] } & {};
+
 type StrictRequired<T> = {
-	[P in keyof T]-?: NonNullable<T[P]>;
+	[P in keyof T]-?: T[P] & {};
 };
 
 type SomeStrictRequired<T, K extends keyof T> = Omit<T, K> & StrictRequired<Pick<T, K>>;
@@ -93,11 +95,10 @@ export interface GridSize {
 	rows: number;
 }
 
-export type LifeGameRendererConfig = SomeStrictRequired<
-	LifeGameRendererOptions,
-	keyof typeof DEFAULT_RENDERER_OPTIONS
-> &
-	GridSize;
+export type LifeGameRendererConfig = Simplify<
+	SomeStrictRequired<LifeGameRendererOptions, keyof typeof DEFAULT_RENDERER_OPTIONS> &
+		GridSize
+>;
 
 export interface LifeGameCanvasRendererOptions extends LifeGameRendererOptions {
 	/**
@@ -106,11 +107,13 @@ export interface LifeGameCanvasRendererOptions extends LifeGameRendererOptions {
 	useWorker?: boolean | undefined;
 }
 
-export type LifeGameCanvasRendererConfig = SomeStrictRequired<
-	LifeGameCanvasRendererOptions,
-	keyof typeof DEFAULT_RENDERER_OPTIONS
-> &
-	GridSize;
+export type LifeGameCanvasRendererConfig = Simplify<
+	SomeStrictRequired<
+		LifeGameCanvasRendererOptions,
+		keyof typeof DEFAULT_RENDERER_OPTIONS
+	> &
+		GridSize
+>;
 
 export interface Renderer<O = LifeGameRendererConfig> {
 	readonly config?: O;

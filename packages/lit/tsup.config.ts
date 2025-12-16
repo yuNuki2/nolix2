@@ -6,7 +6,11 @@ export default defineConfig({
 	},
 	outDir: "dist",
 	format: ["esm", "cjs"],
-	dts: true,
+	dts: {
+		compilerOptions: {
+			composite: false,
+		},
+	},
 	splitting: false,
 	// minify: true,
 	sourcemap: true,

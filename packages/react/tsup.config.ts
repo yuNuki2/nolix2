@@ -9,7 +9,11 @@ export default defineConfig({
 	banner: {
 		js: `"use client"`,
 	},
-	dts: true,
+	dts: {
+		compilerOptions: {
+			composite: false,
+		},
+	},
 	splitting: false,
 	sourcemap: true,
 	clean: true,
